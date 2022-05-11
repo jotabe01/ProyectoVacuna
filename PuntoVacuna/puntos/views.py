@@ -14,8 +14,10 @@ def inicio(request):
 
 def lista_usuarios(request):
 	usuario = Usuario.objects.all()
+	usuarios = Usuario.objects.all()
 	contexto ={
         "usuario":usuario,
+	    "Usuarios":usuarios,
        
     }
 	return render(request, 'puntos/lista_usuarios.html',contexto)
@@ -64,6 +66,52 @@ def registro(request):
                 return redirect('registrar_usuario')
 
 
+
+def modificar_usuario(request,id):
+    usuario1 = Usuario.objects.get(user_id = id)
+    tipos1 = Tipo_usuario.objects.all()
+    usuario = Usuario.objects.all()
+
+    contexto={
+        "usuario_modificar":usuario1,
+        "tipos_usuarios":tipos1,
+        "usuario":usuario,
+
+
+    }
+    return render(request,'puntos/modificar_usuario.html',contexto)
+	
+
+def modificar_us(request):
+    id_usr=request.POST['id_usr']
+    nombre_us=request.POST['Nombre']
+    rut_us=request.POST['Rut']
+    correo_us=request.POST['correo']
+    us_username = request.POST['Username']
+    us_tipo = request.POST['tipu']
+    us_tipos = Tipo_usuario.objects.get(id_tipo_usuario = us_tipo)
+
+    usuario_p= Usuario.objects.get(num_run= rut_us)
+    usuario_p.nombres = nombre_us
+    usuario_p.correo = correo_us
+    usuario_p.tipo_usuario = us_tipos
+    usuario_p.nombre_usr = us_username
+    usuario_p.save()
+
+    usuario_usr = User.objects.get(id = id_usr)
+    if Usuario.objects.filter(tipo_usuario = 1):
+        usuario_usr.is_superuser = True
+        usuario_usr.is_staff = True
+
+    elif Usuario.objects.filter(tipo_usuario = 2):
+        usuario_usr.is_superuser = False
+        usuario_usr.is_staff = False
+    
+    usuario_usr.save()
+    messages.success(request,'**El usuario '+us_username+' a sido modificado exitosamente.**')
+    return redirect('lista_usuarios')
+
+
 def eliminar_usuario(request, id):
     usu = Usuario.objects.get(user_id = id)
     usu.delete()
@@ -72,6 +120,20 @@ def eliminar_usuario(request, id):
     messages.success(request,'**El usuario '+usu.nombre_usr+' a sido eliminado exitosalemte.**')
 
     return redirect('lista_usuarios')
+
+def buscar_usuario(request):
+    if Usuario.nombre_usr:
+        x = request.POST['buscar_us']
+        u1 = Usuario.objects.filter(nombre_usr__contains = x )
+        u2 = Usuario.objects.filter(num_run__contains = x )
+        usuario = Usuario.objects.all()
+
+        contexto = {
+            "us1" : u1 or u2,
+            "usuario":usuario,
+            }
+        messages.success(request,'Resultados de: '+x)
+    return render(request,'puntos/lista_usuarios.html', contexto )
 
 def login_view(request):
     username_u = request.POST['username']
@@ -102,4 +164,6 @@ def form_login(request):
     }
 
     return render(request,'puntos/inicio.html',contexto)
+
+
 

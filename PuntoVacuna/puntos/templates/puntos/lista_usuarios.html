@@ -23,8 +23,8 @@
                     src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
             <form class="form-inline" action="" method="POST">
                 {% csrf_token %}
-                <input class="form-control ml-sm-5 inputstyle letras" type="text" placeholder="Buscar en todos los productos"
-                    style="width: 241px;" required name="dato" id="dato">
+                <input class="form-control ml-sm-5 inputstyle letras" type="text"
+                    placeholder="Buscar en todos los productos" style="width: 241px;" required name="dato" id="dato">
                 <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
             </form>
             <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -45,32 +45,32 @@
                 </ul>
 
                 <ul class="navbar-nav espaciadonavbar">
-                   
-                  
-                 
-                    
+
+
+
+
                     {% if user.is_authenticated %}
                     {% if user.is_staff %}
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar Usuarios</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar
+                            Usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link" href="">Administrar Vacunas</a>
                     </li>
                     <li class="nav-item">
-                       
+
                         <a style="color: white;" class="nav-link ml-sm-2" href="">Administrar Centros</a>
-                      
+
                     </li>
                     {% endif %}
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
-                    </li> 
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link"
-                            href="">{{user.username}}</a>                      
                     </li>
-                    
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="">{{user.username}}</a>
+                    </li>
+
                     {% else %}
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link ml-sm-2" href="">Registrarse</a>
@@ -83,21 +83,22 @@
             </div>
         </nav>
     </header>
-   
+    {% if user.is_superuser == 1 %}
     <div class="container tabla_prod">
         <div class="table-responsive">
             <h2 class="text-center" style="padding-top: 30px ;">Tabla de cuentas registradas</h2>
 
             <p class="text-center" style="padding-bottom: 20px ;">Ten precaución al manejar los datos</p>
+
             <div class="text-center">
-                <a href="{% url 'registrar_usuario' %}"><button style="margin-bottom: 20px;" class="btn btn-primary ">Agregar</button> </a></th>
-                <form action="" method="POST">
+                <a href="{% url 'registrar_usuario' %}"><button style="margin-bottom: 20px;"
+                        class="btn btn-primary ">Agregar</button> </a></th>
+                <form action="{% url 'buscar_usuario' %}" method="POST">
                     {% csrf_token %}
                     <input class="form-control inputstyle dps" type="text" placeholder="Buscar por username o  rut"
                         style="width: 241px;" name="buscar_us" id="buscar_us">
                     <button class="btn btn-primary b1" type="submit">Buscar</button>
                 </form>
-                
             </div>
             <br>
             {% if messages %}
@@ -120,7 +121,7 @@
                     </tr>
                 </thead>
                 <tbody class="thead-light" style="background: white;">
-                    {% for p in usuario %}
+                    {% for p in Usuarios %}
                     <tr>
 
                         <th class="th">{{p.num_run}}</th>
@@ -130,10 +131,12 @@
                         <th class="th">{{p.tipo_usuario.nombre}}</th>
                         <th><a href="{% url 'eliminar_usuario' p.user_id %}"><button
                                     class="btn btn-primary bbbt">Eliminar</button></a>
-                            <a href=""><button
-                                    class="btn btn-primary bbbt">Modificar</button> </a></th>
+                            <a href="{% url 'modificar_usuario' p.user_id %}"><button
+                                    class="btn btn-primary bbbt">Modificar</button> </a>
+                        </th>
                     </tr>
                     {% endfor %}
+                    {% for a in us1 %}
                     <tr>
 
                         <th class="th">{{a.num_run}}</th>
@@ -141,17 +144,18 @@
                         <th class="th">{{a.nombre_usr}}</th>
                         <th class="th">{{a.correo}}</th>
                         <th class="th">{{a.tipo_usuario.nombre}}</th>
-                        <th><a href=""><button
+                        <th><a href="{% url 'eliminar_usuario' a.user_id %}"><button
                                     class="btn btn-primary bbbt">Eliminar</button></a>
-                            <a href=""><button
-                                    class="btn btn-primary bbbt">Modificar</button> </a></th>
+                            <a href="{% url 'modificar_usuario' a.user_id %}"><button
+                                    class="btn btn-primary bbbt">Modificar</button> </a>
+                        </th>
                     </tr>
-                   
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-  
+    {% else %}
     <div class="ll">
         <div class="container color">
             <div class="row">
@@ -161,12 +165,9 @@
             </div>
         </div>
     </div>
- 
+    {% endif %}
 
 </body>
 
-</html>
-
-</body>
 
 </html>
