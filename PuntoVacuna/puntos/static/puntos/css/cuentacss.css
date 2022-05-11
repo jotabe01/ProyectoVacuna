@@ -1,0 +1,93 @@
+.bord{
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 2%;
+    padding-bottom: 3%;
+    box-shadow: 0px 0px 12px #ccc;
+}
+#in{
+    box-shadow: 0px 0px 12px #ccc;
+    border-bottom: 1px solid #5EF2FE;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 10% left;
+    background-image: url("/static/ventas/img/fondo3.jpg");
+    
+}
+.espaciado{
+    margin-top: 5%;
+}
+.a{
+    margin-top: 5%;
+}
+.tablita{
+    position: sticky;
+    top: 75px;
+}
+.bbbt{
+    margin-top: 10%;
+    background: #5EF2FE;
+    color: black;
+    border: solid #5EF2FE;
+}
+.bordernav{
+    box-shadow: 0 0 20px 0.5px grey;
+}
+@media screen and (max-width: 550px){
+    .ll{
+        width: 550px;   
+    }
+    footer{
+        width: 550px;
+    }
+    
+}
+.th{
+    
+    padding-top:50px !important;
+}
+.pp{
+    padding: 0%;
+}
+.esp{
+    margin-left: 50%;
+    padding-left: 1%;
+}
+.margin-this{
+    margin-top: 20px;
+}
+.texto-sup{
+    margin-top: 20px;
+    margin-bottom: 0%;
+    text-align: center;
+}
+#map{
+	height: 200px;
+	width: 100%;
+}
+.ll{
+    margin-top: 3%;
+}
+.error{
+    color: red;
+}
+.th-comentario{
+    height: 50px;
+    overflow-y: scroll;
+    width: 250px;
+}
+.pef{
+    color: black;
+    margin-bottom: 4%;
+    border-bottom: black;
+    border-bottom: 1px solid black;
+}
+.alerta{
+    position: relative;
+    padding: .75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.dps{
+    display: inline !important;
+}
