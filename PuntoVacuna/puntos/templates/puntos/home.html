@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="icon" type="image/jpg" href="">
+    <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
     <link rel="stylesheet" href="{% static 'puntos/css/index.css' %}">
     <title>Patagón-Inicio</title>
 </head>
@@ -19,7 +19,7 @@
     <header>
         <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
             <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;"
-                    src="{% static 'ventas/img/icono2.PNG' %}" alt=""></a>
+                    src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
             <form class="form-inline " action="" method="POST">
                 {% csrf_token %}
                 <input class="form-control ml-sm-5 inputstyle letras" type="text" placeholder="Buscar vacunas disponibles"
@@ -48,7 +48,8 @@
                   
                  
                     
-
+                    {% if user.is_authenticated %}
+                    {% if user.is_staff %}
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar Usuarios</a>
                     </li>
@@ -60,21 +61,23 @@
                         <a style="color: white;" class="nav-link ml-sm-2" href="">Administrar Centros</a>
                       
                     </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="">Cerrar Sesión</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
                     </li> 
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link"
                             href="">{{user.username}}</a>                      
                     </li>
-                  
+                    
+                    {% else %}
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link ml-sm-2" href="">Registrarse</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'inicio' %}">Iniciar Sesión</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
                     </li>
-                          
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -90,8 +93,12 @@
             {% endif %}
         </div>
     </header>
-
+    <div class="container a2" >
+        <img class="portada" src="{% static 'puntos/img/icono.PNG' %}" alt="">
+    </div>
     <div class="Carousel">
+        
+       
         
         <h2 class="titulos" style="color:red">Anuncios Importantes</h2>
         

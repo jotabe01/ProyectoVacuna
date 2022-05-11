@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 
 def home(request):
@@ -71,3 +72,34 @@ def eliminar_usuario(request, id):
     messages.success(request,'**El usuario '+usu.nombre_usr+' a sido eliminado exitosalemte.**')
 
     return redirect('lista_usuarios')
+
+def login_view(request):
+    username_u = request.POST['username']
+    password_u = request.POST['password']
+    user = authenticate(username = username_u, password = password_u)
+
+    if user is not None:
+        if user.is_active:
+            login(request,user)
+            messages.success(request,'Bienvenido '+username_u+ ', has iniciado sesion ')
+            return redirect('home')
+        else:
+            messages.error(request,'Usuario inactivo')
+    else:
+        messages.error(request,'El nombre de usuario y la contraseña que ingresaste no coinciden con nuestros registros. Por favor, revisa e inténtalo de nuevo.')
+    return redirect('login')
+
+def logout_view(request):
+
+    logout(request)
+
+    return redirect('home') 
+
+def form_login(request):
+    usuario = Usuario.objects.all()
+    contexto ={
+        "usuario":usuario,
+    }
+
+    return render(request,'puntos/inicio.html',contexto)
+
