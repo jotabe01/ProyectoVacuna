@@ -15,29 +15,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script type="text/javascript"
         src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
-    <link rel="icon" type="image/jpg" href="{% static 'ventas/img/icono.PNG' %}">
-    <title>PuntoVacuna-Modificar Usuario</title>
+    <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
+    <title>PuntoVacuna-Registrar</title>
+
     <script>
-        $(document).ready(function () {
+        $(document).click(function () {
             $("#formulario_registro").validate({
                 rules: {
                     Rut: {
                         required: true,
                         number: true,
                         min: 1,
-                        minlength: 6
+                        maxlength: 8,
+                        minlength: 7
 
                     },
+
                     Nombre: {
                         required: true,
-                        minlength: 2
+                        minlength: 3
 
                     },
-                    Numero: {
-                        required: true,
-                        minlength: 8
 
+
+                    Apellido_P: {
+                        minlength: 3
                     },
+
                     correo: {
                         required: true,
                         minlength: 1,
@@ -56,12 +60,22 @@
 
 
                     },
+                    username: {
+                        required: true,
+                        minlength: 4
+
+
+                    },
+
+
+
+                },
+                messages: {
+
 
 
 
                 }
-
-
 
             });
         });
@@ -135,7 +149,6 @@
             </div>
         </nav>
     </header>
-    {% if user.is_superuser == 1 or user.is_staff == 1 %}
     <article>
         <section>
             <div class="ll">
@@ -145,67 +158,64 @@
                             <!-- Manipular Messages-->
                             {% if messages %}
 
-                            <div class="alerta alert-success">
+                            <div class="alerta alert-danger">
                                 {% for x in messages %}
-                                <strong>{{ x }} exitosamente.</strong>
+                                <strong>{{ x }}</strong>
                                 {% endfor%}
                             </div>
                             {% endif %}
-                            <form action="{% url 'modificar_us' %}" method="POST" name="formulario_registro"
+                            <form action="{% url 'registrar2' %}" method="POST" name="formulario_registro"
                                 id="formulario_registro" class="bord">
                                 {% csrf_token %}
-                                <div id="in" class="text-center">Modificar Usuario</div>
-                                <div class="form-group">
-                                    <input type="hidden" class="form-control" id="id_usr" name="id_usr"
-                                        value="{{ usuario_modificar.user.id }}">
-                                </div>
+
+                                <div id="in" class="text-center">Registrar </div>
                                 <div class="form-group a">
                                     <label for="Nombre">Nombre</label>
                                     <input type="text" class="form-control" id="Nombre" name="Nombre"
-                                        placeholder="Ponga su nombre" value="{{ usuario_modificar.nombres }}" readonly>
+                                        placeholder="Ponga su nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Apellido_P">Apellidos</label>
+                                    <input type="text" class="form-control" id="Apellidos_per" name="Apellidos_per"
+                                        placeholder="Ponga su Apellido">
                                 </div>
 
-                                <label for="Rut">Rut</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control col-md-12" name="Rut" id="Rut"
-                                        placeholder="Sin puntos ni guion" value="{{ usuario_modificar.num_run }}"
-                                        readonly>
+
+                                <div class="form-group">
+                                    <label for="Rut">Rut</label>
+                                    <input type="number" class="form-control" name="Rut" id="Rut"
+                                        placeholder="Sin puntos ni guion">
 
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Correo Electronico</label>
                                     <input type="email" class="form-control" id="correo" aria-describedby="emailHelp"
-                                        placeholder="Ponga su email" name="correo"
-                                        value="{{ usuario_modificar.correo }}" readonly>
-                                    <small id="emailHelp" class="form-text text-muted">ejemplo@correo.com</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nombre_us">Nombre de Usuario</label>
-                                    <input type="text" class="form-control" id="Username" name="Username"
-                                        placeholder="Ponga su username" value="{{ usuario_modificar.nombre_usr }}"
-                                        readonly>
+                                        placeholder="ejemplo@correo.com" name="correo">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tipo de Cuenta</label>
-                                    <select class="form-control" id="tipu" name="tipu">
-                                        {%for k in tipos_usuarios%}
-
-                                        {% if k.id_tipo_usuario == usuario_modificar.tipo_usuario.nombre %}
-                                        <option value="{{ k.id_tipo_usuario }} " selected>{{ k.nombre }}</option>
-                                        {% else %}
-                                        <option value="{{ k.id_tipo_usuario }} ">{{ k.nombre }}</option>
-                                        {% endif %}
-
-                                        {% endfor %}
-                                    </select>
+                                    <label for="Nombre">Nombre de Usuario</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        placeholder="Ingrese nombre de usuario">
                                 </div>
+                                <div class="form-group">
+                                    <label for="Contraseña">Contraseña</label>
+                                    <input type="password" class="form-control" id="Contraseña" name="Contraseña"
+                                        placeholder="Contraseña">
 
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" value="2" class="form-control" id="tipu" name="tipu" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Contraseña1">Confirmar Contraseña</label>
+                                    <input type="password" class="form-control" id="Contraseña1" name="Contraseña1"
+                                        placeholder="Repite Contraseña">
+                                </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary bbbt">Modificar</button>
+                                    <button type="submit" class="btn btn-primary bbbt">Registrar</button>
                                 </div>
-
                                 <br>
                             </form>
                         </div>
@@ -215,17 +225,12 @@
         </section>
         <script src="{% static 'ventas/js/script.js' %}"></script>
     </article>
-    {% else %}
-    <div class="ll">
-        <div class="container color">
-            <div class="row">
-                <div class="card-body">
-                    <h1 class="text-center">NO DISPONE DE PERMISO</h1>
-                </div>
-            </div>
+    <footer class="site-info">
+
+
+        <span>Punto Vacuna - Todos los derechos Reservados [2021]</span>
         </div>
-    </div>
-    {% endif %}
+    </footer>
 </body>
 
 </html>

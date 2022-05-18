@@ -22,8 +22,10 @@ def lista_usuarios(request):
     }
 	return render(request, 'puntos/lista_usuarios.html',contexto)
 
-def registrar_usuario(request):
-	return render(request, 'puntos/registrar_usuario.html')
+
+def registrar(request):
+	return render(request, 'puntos/registrar.html')
+
 
 
 def registro(request):
@@ -164,6 +166,56 @@ def form_login(request):
     }
 
     return render(request,'puntos/inicio.html',contexto)
+
+
+def registrar_usuario(request):
+    tipo_usuario = Tipo_usuario.objects.all()
+    contexto ={
+        "tipo_usuario":tipo_usuario,
+    }
+
+    return render(request,'puntos/registrar_usuario.html',contexto)
+
+def registrar2(request):
+    nombre_u = request.POST['Nombre']
+    appellidos_u = request.POST['Apellidos_per']
+    rut_u = request.POST['Rut']
+    correo_u = request.POST['correo']
+    username_u = request.POST['username']
+    contraseña_u = request.POST['Contraseña']
+    contraseña_conf = request.POST['Contraseña1']
+    tip_u = request.POST['tipu']
+    tip_o = Tipo_usuario.objects.get(id_tipo_usuario = tip_u) #al ser foranea debe ser extraida de la otra tabala
+    
+    try:
+        a= User.objects.get(username=username_u )
+        messages.error(request,'Nombre de usuario no disponible')
+        return redirect('registrar')
+
+    except User.DoesNotExist:
+        try:
+            b=Usuario.objects.get(num_run=rut_u)
+            messages.error(request,'El Rut no esta disponible')
+            return redirect('registrar')
+
+        except Usuario.DoesNotExist:
+
+            user1 = User.objects.create_user(username_u, correo_u, contraseña_u)
+            user1.first_name = nombre_u
+            user1.last_name = appellidos_u
+            user1.is_staff = 0
+            user1.save() 
+            if contraseña_conf == contraseña_u:
+                a=Usuario.objects.create(nombres = nombre_u, appellidos = appellidos_u, 
+                                    num_run = rut_u, correo = correo_u, nombre_usr = username_u, clave = contraseña_u, tipo_usuario = tip_o, user = user1)
+                messages.success(request,'Usuario registrado')
+            
+                return redirect('home')
+            else:
+                messages.error(request,'La contraseña no coinside')    
+                return redirect('registrar')
+
+
 
 
 

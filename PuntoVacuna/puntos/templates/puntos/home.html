@@ -22,8 +22,8 @@
                     src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
             <form class="form-inline " action="" method="POST">
                 {% csrf_token %}
-                <input class="form-control ml-sm-5 inputstyle letras" type="text" placeholder="Buscar vacunas disponibles"
-                    style="width: 241px;" required name="dato" id="dato">
+                <input class="form-control ml-sm-5 inputstyle letras" type="text"
+                    placeholder="Buscar vacunas disponibles" style="width: 241px;" required name="dato" id="dato">
                 <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
             </form>
             <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -44,35 +44,35 @@
                 </ul>
 
                 <ul class="navbar-nav espaciadonavbar">
-                   
-                  
-                 
-                    
+
+
+
+
                     {% if user.is_authenticated %}
                     {% if user.is_staff %}
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar Usuarios</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar
+                            Usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link" href="">Administrar Vacunas</a>
                     </li>
                     <li class="nav-item">
-                       
+
                         <a style="color: white;" class="nav-link ml-sm-2" href="">Administrar Centros</a>
-                      
+
                     </li>
                     {% endif %}
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
-                    </li> 
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link"
-                            href="">{{user.username}}</a>                      
                     </li>
-                    
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="">{{user.username}}</a>
+                    </li>
+
                     {% else %}
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link ml-sm-2" href="">Registrarse</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'registrar' %}">Registrarse</a>
                     </li>
                     <li class="nav-item">
                         <a style="color: white;" class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
@@ -93,38 +93,38 @@
             {% endif %}
         </div>
     </header>
-    <div class="container a2" >
-        <img class="portada" src="{% static 'puntos/img/icono.PNG' %}" alt="">
+    <div class="container a2">
+        <img class="portada"  src="{% static 'puntos/img/icono.PNG' %}" alt="">
     </div>
     <div class="Carousel">
-        
-       
-        
+
+
+
         <h2 class="titulos" style="color:red">Anuncios Importantes</h2>
-        
-      
+
+
         <h2 class="titulos">Centros Disponibles</h2>
-        
+
         <h2 class="titulos">Vacunas Disponibles</h2>
-        
-            <button class="slick-arrow slick-next" id="button-next" data-button="button-next"
-                onclick="app.processingButton(event)">
-                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
-                    class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 320 512">
-                    <path fill="currentColor"
-                        d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
-                    </path>
-                </svg>
-            </button>
-        </div>
+
+        <button class="slick-arrow slick-next" id="button-next" data-button="button-next"
+            onclick="app.processingButton(event)">
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
+                class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 320 512">
+                <path fill="currentColor"
+                    d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
+                </path>
+            </svg>
+        </button>
+    </div>
 
 
     </div>
     <script src="{% static 'ventas/js/script.js' %}"></script>
     <footer class="site-info">
-        
-        
+
+
         <div class="inside-site-info">
             <span>PuntoVacuna-Todos los derechos Reservados [2022]</span>
         </div>
