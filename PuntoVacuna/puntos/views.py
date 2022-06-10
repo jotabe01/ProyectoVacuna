@@ -307,3 +307,66 @@ def buscar_centro(request):
     #         }
     #     messages.success(request,'Resultados de: '+x)
     # return render(request,'puntos/lista_usuarios.html', contexto )
+
+
+#vacuna
+def registrar_vacuna(request):
+   return render(request,'puntos/registrar_vacuna.html')
+
+def guardar_vacuna(request):
+    nom_vac = request.POST['nom_vacu']
+    
+    Vacuna.objects.create(nombre = nom_vac)
+    messages.success(request, "Vacuna Agregado exitosamente")
+    return render(request,'puntos/registrar_vacuna.html')
+
+
+def eliminar_vacuna(request, id):
+    vacunas = Vacuna.objects.get(id_vacuna = id)
+    vacunas.delete()
+    messages.success(request,'vacuna Eliminada')
+
+    return redirect('lista_vacunas')
+
+def lista_vacunas(request):
+    vacunasx = Vacuna.objects.all()
+    contexto = {"vacu": vacunasx}
+    return render(request,'puntos/lista_vacunas.html', contexto)
+
+def modificar_vacuna(request, id):
+    vacuna11 = Vacuna.objects.get(id_vacuna = id)
+   
+    contexto = {
+        "modificar_vacuna":vacuna11
+    }
+    return render(request,'puntos/modificar_vacuna.html',contexto)
+
+def funcionmodvac(request):
+    idvacun = request.POST['id_vacuna']
+    nombrev = request.POST['nom_vac']
+   
+
+    vacuna1 = Vacuna.objects.get(id_vacuna = idvacun)
+    vacuna1.nombre = nombrev
+    
+    vacuna1.save()
+
+    messages.success(request, 'Vacuna  modificada')
+    return redirect('lista_vacunas')
+
+def buscar_vacuna(request):
+    if Vacuna.nombre:
+        x = request.POST['b_vacuna']
+        v1 = Vacuna.objects.filter(nombre__contains = x )
+        
+        vacunas = Vacuna.objects.all()
+
+        contexto = {
+            "vn1" : v1, 
+            "vn2": vacunas
+            
+
+            
+            }
+        messages.success(request,'Resultados de: '+x)
+    return render(request,'puntos/lista_vacunas.html', contexto )

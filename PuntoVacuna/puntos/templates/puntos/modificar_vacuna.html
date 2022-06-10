@@ -114,18 +114,19 @@
          {% endfor%}
      </div>
      {% endif %}
-    <form action="{% url 'guardar_centro' %}" method="POST" name="formulario_centro" id="formulario_centro" class="bord">
+    <form action="{% url 'funcionmodvac' %}" method="POST" name="formulario_modv" id="formulario_modv" class="bord">
         {% csrf_token %}
-        <div id="in" class="text-center">Registrar centro</div>
+        <div id="in" class="text-center">modificar vacuna</div>
         <div class="form-group a">
-            <label for="nom_centro">Nombre del centro</label>
-            <input type="text" class="form-control" id="nom_centro" name="nom_centro" placeholder="Ej: Gestion Agil">
+            <label for="id_centro">id del centro</label>
+            <input type="text" class="form-control" id="id_vacuna" value="{{ modificar_vacuna.id_vacuna }}" name="id_vacuna" placeholder="Ej: Gestion Agil" required readonly>
         </div>
+      
         <div class="form-group">
             <label for="des_centro">descripcion</label>
-            <input type="text" class="form-control" id="des_centro" name="des_centro"
+            <input type="text" class="form-control" id="nom_vac" name="nom_vac" value="{{ modificar_vacuna.nombre }}"
                 placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
-                <button type="submit" class="btn btn-primary">registrar centro</button>
+            <button type="submit" class="btn btn-primary">modificar vacuna</button>
         </div>
 
 

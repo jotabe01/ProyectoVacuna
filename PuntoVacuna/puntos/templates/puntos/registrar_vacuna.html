@@ -114,17 +114,15 @@
          {% endfor%}
      </div>
      {% endif %}
-    <form action="{% url 'guardar_centro' %}" method="POST" name="formulario_centro" id="formulario_centro" class="bord">
+    <form action="{% url 'guardar_vacuna' %}" method="POST" name="formulario_vacuna" id="formulario_vacuna" class="bord">
         {% csrf_token %}
         <div id="in" class="text-center">Registrar centro</div>
         <div class="form-group a">
-            <label for="nom_centro">Nombre del centro</label>
-            <input type="text" class="form-control" id="nom_centro" name="nom_centro" placeholder="Ej: Gestion Agil">
+            <label for="nom_vacu">nombre de la vacuna</label>
+            <input type="text" class="form-control" id="nom_vacu" name="nom_vacu" placeholder="Ej: Moderna pfizer 4k">
         </div>
         <div class="form-group">
-            <label for="des_centro">descripcion</label>
-            <input type="text" class="form-control" id="des_centro" name="des_centro"
-                placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+           
                 <button type="submit" class="btn btn-primary">registrar centro</button>
         </div>
 

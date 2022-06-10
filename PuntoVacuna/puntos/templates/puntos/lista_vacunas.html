@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 {% load static %}
-
-
 
 <head>
     <meta charset="UTF-8">
@@ -10,32 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'puntos/css/cuentacss.css' %}">
-    <link rel="stylesheet" href="{% static 'puntos/css/Repitcss.css' %}">
+    <link rel="stylesheet" href="{% static 'puntos/css/contacto.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-    <script type="text/javascript"
-        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <title>PuntoVacuna-Inicio Sesion</title>
-    <script>
-        $(document).ready(function () {
-            $("#formulario_inicio").validate({
-                rules: {
-                    correo: {
-                        required: true,
-                        minlength: 1,
-                        email: true
-                    },
-                    Contraseña: {
-                        required: true,
-                        minlength: 1
-                    }
-                }
-            });
-        });
-    </script>
+    <title>Admin-Listado Usuarios</title>
 </head>
 
 <body>
@@ -82,7 +60,8 @@
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -105,38 +84,90 @@
             </div>
         </nav>
     </header>
-     <!-- Manipular Messages-->
-     {% if messages %}
+    {% if user.is_superuser == 1 %}
+    <div class="container tabla_prod">
+        <div class="table-responsive">
+            <h2 class="text-center" style="padding-top: 30px ;">Tabla de cuentas registradas</h2>
 
-     <div class="alerta alert-danger">
-         {% for x in messages %}
-         <strong>{{ x }}</strong>
-         {% endfor%}
-     </div>
-     {% endif %}
-    <form action="{% url 'guardar_centro' %}" method="POST" name="formulario_centro" id="formulario_centro" class="bord">
-        {% csrf_token %}
-        <div id="in" class="text-center">Registrar centro</div>
-        <div class="form-group a">
-            <label for="nom_centro">Nombre del centro</label>
-            <input type="text" class="form-control" id="nom_centro" name="nom_centro" placeholder="Ej: Gestion Agil">
+            <p class="text-center" style="padding-bottom: 20px ;">Ten precaución al manejar los datos</p>
+
+            <div class="text-center">
+                <a href="{% url 'registrar_vacuna' %}"><button style="margin-bottom: 20px;"
+                        class="btn btn-primary ">Agregar vacuna</button> </a></th>
+                <form action="{% url 'buscar_vacuna' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="form-control inputstyle dps" type="text" placeholder="Buscar por nombre"
+                        style="width: 241px;" name="b_vacuna" id="b_vacuna">
+                    <button class="btn btn-primary b1" type="submit">Buscar</button>
+                </form>
+            </div>
+            <br>
+            {% if messages %}
+
+            <div class="container">
+                {% for x in messages %}
+                <h4>{{ x }}</h4>
+                {% endfor%}
+            </div>
+            {% endif %}
+            <table class="table ">
+                <thead class="thead-dark tablita">
+                    <tr>
+                        <th>id vacuna</th>
+                        <th>nombre vacuna</th>
+                        <th>Accion</th>
+
+
+                    </tr>
+                </thead>
+                <tbody class="thead-light" style="background: white;">
+                    {% for v in vacu %}
+                    <tr>
+
+                        <th class="th">{{v.id_vacuna}}</th>
+                        <th class="th">{{v.nombre}}</th>
+
+
+                        <th>
+                            <a href="{% url 'eliminar_vacuna' v.id_vacuna %}"><button
+                                    class="btn btn-primary bbbt">Eliminar</button></a>
+                            <a href="{% url 'modificar_vacuna' v.id_vacuna %}"><button
+                                    class="btn btn-primary bbbt">Modificar</button> </a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                    {% for v in vn1 %}
+                    <tr>
+
+                        <th class="th">{{v.id_vacuna}}</th>
+                        <th class="th">{{v.nombre}}</th>
+
+
+                        <th>
+                            <a href="{% url 'eliminar_vacuna' v.id_vacuna %}"><button
+                                    class="btn btn-primary bbbt">Eliminar</button></a>
+                            <a href="{% url 'modificar_vacuna' v.id_vacuna %}"><button
+                                    class="btn btn-primary bbbt">Modificar</button> </a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            <label for="des_centro">descripcion</label>
-            <input type="text" class="form-control" id="des_centro" name="des_centro"
-                placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
-                <button type="submit" class="btn btn-primary">registrar centro</button>
+    </div>
+    {% else %}
+    <div class="ll">
+        <div class="container color">
+            <div class="row">
+                <div class="card-body">
+                    <h1 class="text-center">NO DISPONE DE PERMISO</h1>
+                </div>
+            </div>
         </div>
+    </div>
+    {% endif %}
 
-
-    </form>
-    <footer class="site-info">
-
-
-        <div class="inside-site-info">
-            <span>Punto Vacuna - Todos los derechos Reservados [2021]</span>
-        </div>
-    </footer>
 </body>
+
 
 </html>

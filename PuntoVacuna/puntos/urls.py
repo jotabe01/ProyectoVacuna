@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
-from .views import  eliminar_centro, guardar_centro, home, inicio, lista_centros, lista_usuarios, modificar_centro, registrar_usuario,registro, eliminar_usuario, form_login, login_view, logout_view, registrar2, modificar_usuario, modificar_us, buscar_usuario, registrar,registrar_centro,  lista_centros, eliminar_centro, guardar_centro, modificar_centro, funcionmodcentro, buscar_centro
+from .views import  eliminar_centro, guardar_centro, home, inicio, lista_centros, lista_usuarios, modificar_centro, registrar_usuario,registro, eliminar_usuario, form_login, login_view, logout_view, registrar2, modificar_usuario, modificar_us, buscar_usuario, registrar,registrar_centro,  lista_centros, eliminar_centro, guardar_centro, modificar_centro, funcionmodcentro, buscar_centro, guardar_vacuna, eliminar_vacuna, registrar_vacuna, lista_vacunas, funcionmodvac, modificar_vacuna, buscar_vacuna
 
 
 urlpatterns = [
@@ -18,6 +18,7 @@ urlpatterns = [
     path('registrar',registrar,name="registrar") ,
     path('registrar2', registrar2, name="registrar2" ),
     path('registrar_usuario', login_required(registrar_usuario), name="registrar_usuario" ),
+    #centro
     path('registrar_centro',login_required(registrar_centro), name='registrar_centro'),
     path('lista_centros',login_required(lista_centros), name="lista_centros"),
     path('guardar_centro',guardar_centro, name="guardar_centro"),
@@ -26,6 +27,15 @@ urlpatterns = [
     path('modificar_centro/<id>', modificar_centro,name="modificar_centro"),
     path('funcionmodcentro',funcionmodcentro,name="funcionmodcentro"),
     path('buscar_centro',login_required(buscar_centro),name="buscar_centro"),
+    #vacuna
+    path('registrar_vacuna',login_required(registrar_vacuna), name='registrar_vacuna'),
+    path('guardar_vacuna',guardar_vacuna, name="guardar_vacuna"),
+    path('eliminar_vacuna/<id>',eliminar_vacuna, name="eliminar_vacuna"),
+    path('lista_vacunas',login_required(lista_vacunas), name="lista_vacunas"),
+    path('modificar_vacuna/<id>', modificar_vacuna,name="modificar_vacuna"),
+    path('funcionmodvac', funcionmodvac,name="funcionmodvac"),
+    path('buscar_vacuna',login_required(buscar_vacuna),name="buscar_vacuna"),
+
 
     path('login/',form_login, name="login"),
     path('sesion/',login_view, name="sesion"),
