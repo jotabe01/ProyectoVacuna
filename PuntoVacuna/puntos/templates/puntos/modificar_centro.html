@@ -2,17 +2,40 @@
 <html lang="en">
 {% load static %}
 
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'puntos/css/cuentacss.css' %}">
+    <link rel="stylesheet" href="{% static 'puntos/css/Repitcss.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <link rel="stylesheet" href="{% static 'puntos/css/index.css' %}">
-    <title>PuntoVacuna-Home</title>
+    <title>PuntoVacuna-Inicio Sesion</title>
+    <script>
+        $(document).ready(function () {
+            $("#formulario_inicio").validate({
+                rules: {
+                    correo: {
+                        required: true,
+                        minlength: 1,
+                        email: true
+                    },
+                    Contraseña: {
+                        required: true,
+                        minlength: 1
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -81,52 +104,41 @@
                 </ul>
             </div>
         </nav>
-
-        <div class="container" style="margin-top: 80px;">
-            {% if messages %}
-            <div class="alert alert-info" style="background-color: #5EF2FE;">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                {% for x in messages %}
-                <strong>{{ x }}</strong>
-                {% endfor%}
-            </div>
-            {% endif %}
-        </div>
     </header>
-    <div class="container a2">
-        <img class="portada"  src="{% static 'puntos/img/icono.PNG' %}" alt="">
-    </div>
-    <div class="Carousel">
+     <!-- Manipular Messages-->
+     {% if messages %}
+
+     <div class="alerta alert-danger">
+         {% for x in messages %}
+         <strong>{{ x }}</strong>
+         {% endfor%}
+     </div>
+     {% endif %}
+    <form action="{% url 'modificar_centro' %}" method="POST" name="formulario_modc" id="formulario_modc" class="bord">
+        {% csrf_token %}
+        <div id="in" class="text-center">modificar centro</div>
+        <div class="form-group a">
+            <label for="id_centro">id del centro</label>
+            <input type="text" class="form-control" id="id_centro" value="{{ modificar_centro.id_centro }}" name="id_centro" placeholder="Ej: Gestion Agil" required readonly>
+        </div>
+        <div class="form-group a">
+            <label for="nom_centro">Nombre del centro</label>
+            <input type="text" class="form-control" id="nom_centro" value="{{ modificar_centro.nombre }}" name="nom_centro" placeholder="Ej: Gestion Agil">
+        </div>
+        <div class="form-group">
+            <label for="des_centro">descripcion</label>
+            <input type="text" class="form-control" id="des_centro" name="des_centro" value="{{ modificar_centro.descripcion }}"
+                placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+            <button type="submit" class="btn btn-primary">modificar centro</button>
+        </div>
 
 
-
-        <h2 class="titulos" style="color:red">Anuncios Importantes</h2>
-
-
-        <h2 class="titulos">Centros Disponibles</h2>
-
-        <h2 class="titulos">Vacunas Disponibles</h2>
-
-        <button class="slick-arrow slick-next" id="button-next" data-button="button-next"
-            onclick="app.processingButton(event)">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right"
-                class="svg-inline--fa fa-chevron-right fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512">
-                <path fill="currentColor"
-                    d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
-                </path>
-            </svg>
-        </button>
-    </div>
-
-
-    </div>
-    <script src="{% static 'ventas/js/script.js' %}"></script>
+    </form>
     <footer class="site-info">
 
 
         <div class="inside-site-info">
-            <span>PuntoVacuna-Todos los derechos Reservados [2022]</span>
+            <span>Punto Vacuna - Todos los derechos Reservados [2021]</span>
         </div>
     </footer>
 </body>

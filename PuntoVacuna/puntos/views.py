@@ -216,6 +216,60 @@ def registrar2(request):
                 return redirect('registrar')
 
 
+def registrar_centro(request):
+   
+    return render(request,'puntos/registrar_centro.html')
 
 
 
+def lista_centros(request):
+    centrosa = Centro.objects.all()
+    contexto = {"Centros": centrosa}
+    return render(request,'puntos/lista_centros.html', contexto)
+
+
+
+
+
+
+def guardar_centro(request):
+    nom_cen = request.POST['nom_centro']
+    des_cen = request.POST['des_centro']
+
+    Centro.objects.create(nombre = nom_cen, descripcion = des_cen)
+    messages.success(request, "Centro Agregado exitosamente")
+    return render(request,'puntos/registrar_centro.html')
+
+
+def eliminar_centro(request, id):
+    centros = Centro.objects.get(id_centro = id)
+    centros.delete()
+    messages.success(request,'Centro Eliminado')
+
+    return redirect('lista_centros')
+
+
+
+def mod_centro(request, id):
+    centro1 = Centro.objects.get(id_centro = id)
+   
+    contexto = {
+        "modificar_centro":centro1
+    }
+    return render(request,'puntos/modificar_centro.html',contexto)
+
+
+
+def modificar_centro(request):
+    idcentro = request.POST['id_centro']
+    nombrec = request.POST['nom_centro']
+    des_centro = request.POST['des_centro']
+
+    idcentros = request.get['id_centro']
+    centro1 = Centro.objects.get(id_centro = idcentro)
+    centro1.nombre = nombrec
+    centro1.descripcion
+    centro1.save()
+
+    messages.success(request, 'Centro modificado')
+    return redirect('lista_centros')
