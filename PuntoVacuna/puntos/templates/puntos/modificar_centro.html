@@ -114,7 +114,7 @@
          {% endfor%}
      </div>
      {% endif %}
-    <form action="{% url 'modificar_centro' %}" method="POST" name="formulario_modc" id="formulario_modc" class="bord">
+    <form action="{% url 'funcionmodcentro' %}" method="POST" name="formulario_modc" id="formulario_modc" class="bord">
         {% csrf_token %}
         <div id="in" class="text-center">modificar centro</div>
         <div class="form-group a">

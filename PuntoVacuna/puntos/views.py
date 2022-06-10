@@ -250,7 +250,7 @@ def eliminar_centro(request, id):
 
 
 
-def mod_centro(request, id):
+def modificar_centro(request, id):
     centro1 = Centro.objects.get(id_centro = id)
    
     contexto = {
@@ -260,16 +260,50 @@ def mod_centro(request, id):
 
 
 
-def modificar_centro(request):
+def funcionmodcentro(request):
     idcentro = request.POST['id_centro']
     nombrec = request.POST['nom_centro']
     des_centro = request.POST['des_centro']
 
-    idcentros = request.get['id_centro']
     centro1 = Centro.objects.get(id_centro = idcentro)
     centro1.nombre = nombrec
-    centro1.descripcion
+    centro1.descripcion = des_centro
     centro1.save()
 
     messages.success(request, 'Centro modificado')
     return redirect('lista_centros')
+
+
+
+def buscar_centro(request):
+    if Centro.nombre:
+        x = request.POST['b_centro']
+        c1 = Centro.objects.filter(nombre__contains = x )
+        
+        centros = Centro.objects.all()
+
+        contexto = {
+            "cn1" : c1, 
+            "cn2": centros
+            
+
+            
+            }
+        messages.success(request,'Resultados de: '+x)
+    return render(request,'puntos/lista_centros.html', contexto )
+
+
+
+    #   def buscar_usuario(request):
+    # if Usuario.nombre_usr:
+    #     x = request.POST['buscar_us']
+    #     u1 = Usuario.objects.filter(nombre_usr__contains = x )
+    #     u2 = Usuario.objects.filter(num_run__contains = x )
+    #     usuario = Usuario.objects.all()
+
+    #     contexto = {
+    #         "us1" : u1 or u2,
+    #         "usuario":usuario,
+    #         }
+    #     messages.success(request,'Resultados de: '+x)
+    # return render(request,'puntos/lista_usuarios.html', contexto )

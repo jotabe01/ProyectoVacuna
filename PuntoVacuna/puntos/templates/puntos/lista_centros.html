@@ -93,12 +93,12 @@
             <div class="text-center">
                 <a href="{% url 'registrar_centro' %}"><button style="margin-bottom: 20px;"
                         class="btn btn-primary ">Agregar centro</button> </a></th>
-                <!-- <form action="{% url 'buscar_usuario' %}" method="POST">
+                <form action="{% url 'buscar_centro' %}" method="POST">
                     {% csrf_token %}
-                    <input class="form-control inputstyle dps" type="text" placeholder="Buscar por username o  rut"
-                        style="width: 241px;" name="buscar_us" id="buscar_us">
+                    <input class="form-control inputstyle dps" type="text" placeholder="Buscar por nombre"
+                        style="width: 241px;" name="b_centro" id="b_centro">
                     <button class="btn btn-primary b1" type="submit">Buscar</button>
-                </form> -->
+                </form>
             </div>
             <br>
             {% if messages %}
@@ -133,21 +133,20 @@
                         </th>
                     </tr>
                     {% endfor %}
-                    <!-- {% for a in us1 %}
+                    {% for c in cn1 %}
                     <tr>
 
-                        <th class="th">{{a.num_run}}</th>
-                        <th class="th">{{a.nombres}}</th>
-                        <th class="th">{{a.nombre_usr}}</th>
-                        <th class="th">{{a.correo}}</th>
-                        <th class="th">{{a.tipo_usuario.nombre}}</th>
-                        <th><a href="{% url 'eliminar_usuario' a.user_id %}"><button
+                       <th class="th">{{c.id_centro}}</th>
+                        <th class="th">{{c.nombre}}</th>
+                        <th class="th">{{c.descripcion}}</th>
+                        
+                        <th><a href="{% url 'eliminar_centro' c.id_centro %}"><button
                                     class="btn btn-primary bbbt">Eliminar</button></a>
-                            <a href="{% url 'modificar_usuario' a.user_id %}"><button
+                            <a href="{% url 'modificar_centro' c.id_centro %}"><button
                                     class="btn btn-primary bbbt">Modificar</button> </a>
                         </th>
                     </tr>
-                    {% endfor %} -->
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
