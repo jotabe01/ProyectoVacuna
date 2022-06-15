@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <title>Admin-Listado Usuarios</title>
+    <title>Admin-Listado Centros</title>
 </head>
 
 <body>
@@ -86,7 +86,7 @@
     {% if user.is_superuser == 1 %}
     <div class="container tabla_prod">
         <div class="table-responsive">
-            <h2 class="text-center" style="padding-top: 30px ;">Tabla de cuentas registradas</h2>
+            <h2 class="text-center" style="padding-top: 30px ;">Tabla de centros registrados</h2>
 
             <p class="text-center" style="padding-bottom: 20px ;">Ten precaución al manejar los datos</p>
 
@@ -112,9 +112,11 @@
             <table class="table ">
                 <thead class="thead-dark tablita">
                     <tr>
-                        <th>id centro</th>
-                        <th>Nombre centro</th>
-                        <th>Des</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Comuna</th>
+                        <th>Direccion</th>
                         <th>Accion</th>
                     </tr>
                 </thead>
@@ -125,6 +127,8 @@
                         <th class="th">{{c.id_centro}}</th>
                         <th class="th">{{c.nombre}}</th>
                         <th class="th">{{c.descripcion}}</th>
+                        <th class="th">Colina</th>
+                        <th class="th">Av. siempre viva #1 </th>
                         
                         <th><a href="{% url 'eliminar_centro' c.id_centro %}"><button
                                     class="btn btn-primary bbbt">Eliminar</button></a>
