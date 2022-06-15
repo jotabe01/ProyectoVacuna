@@ -78,11 +78,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -105,29 +107,54 @@
             </div>
         </nav>
     </header>
-     <!-- Manipular Messages-->
-     {% if messages %}
+    <article>
+        <section>
+            <div class="ll">
+                <div class="container color">
+                    <div class="row">
+                        <div class="card-body col-md pp">
+                            <!-- Manipular Messages-->
+                            {% if messages %}
 
-     <div class="alerta alert-danger">
-         {% for x in messages %}
-         <strong>{{ x }}</strong>
-         {% endfor%}
-     </div>
-     {% endif %}
-    <form action="{% url 'guardar_vacuna' %}" method="POST" name="formulario_vacuna" id="formulario_vacuna" class="bord">
-        {% csrf_token %}
-        <div id="in" class="text-center">Registrar centro</div>
-        <div class="form-group a">
-            <label for="nom_vacu">nombre de la vacuna</label>
-            <input type="text" class="form-control" id="nom_vacu" name="nom_vacu" placeholder="Ej: Moderna pfizer 4k">
-        </div>
-        <div class="form-group">
-           
-                <button type="submit" class="btn btn-primary">registrar centro</button>
-        </div>
+                            <div class="alerta alert-danger">
+                                {% for x in messages %}
+                                <strong>{{ x }}</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
+                            <form action="{% url 'guardar_vacuna' %}" method="POST" name="formulario_vacuna"
+                                id="formulario_vacuna" class="bord">
+                                {% csrf_token %}
+                                <div id="in" class="text-center">Registrar centro</div>
+                                <div class="form-group a">
+                                    <label for="nom_vacu">nombre de la vacuna</label>
+                                    <input type="text" class="form-control" id="nom_vacu" name="nom_vacu"
+                                        placeholder="Ej: Moderna 4k">
+                                </div>
+                                <div class="form-group a">
+                                    <label for="lab_vacu">nombre de la vacuna</label>
+                                    <input type="text" class="form-control" id="lab_vacu" name="lab_vacu"
+                                        placeholder="Ej: Pfizer">
+                                </div>
+                                <div class="form-group a">
+                                    <label for="des_vacu">nombre de la vacuna</label>
+                                    <input type="text" class="form-control" id="des_vacu" name="des_vacu"
+                                        placeholder="Ej: Vacuna anti covid">
+                                </div>
+                                <div class="form-group">
+
+                                    <button type="submit" class="btn btn-primary">Registrar centro</button>
+                                </div>
 
 
-    </form>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <script src="{% static 'ventas/js/script.js' %}"></script>
+    </article>
     <footer class="site-info">
 
 

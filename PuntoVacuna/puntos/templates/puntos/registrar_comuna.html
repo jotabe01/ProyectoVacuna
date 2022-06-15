@@ -12,8 +12,74 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <title>Admin-Listado Centros</title>
+    <title>PuntoVacuna-Registrar</title>
+
+    <script>
+        $(document).click(function () {
+            $("#formulario_registro").validate({
+                rules: {
+                    Rut: {
+                        required: true,
+                        number: true,
+                        min: 1,
+                        maxlength: 8,
+                        minlength: 7
+
+                    },
+
+                    Nombre: {
+                        required: true,
+                        minlength: 3
+
+                    },
+
+
+                    Apellido_P: {
+                        minlength: 3
+                    },
+
+                    correo: {
+                        required: true,
+                        minlength: 1,
+                        email: true
+
+                    },
+                    Contraseña: {
+                        required: true,
+                        minlength: 1
+
+
+                    },
+                    Contraseña1: {
+                        required: true,
+                        minlength: 1
+
+
+                    },
+                    username: {
+                        required: true,
+                        minlength: 4
+
+
+                    },
+
+
+
+                },
+                messages: {
+
+
+
+
+                }
+
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -83,93 +149,47 @@
             </div>
         </nav>
     </header>
-    {% if user.is_superuser == 1 %}
-    <div class="container tabla_prod">
-        <div class="table-responsive">
-            <h2 class="text-center" style="padding-top: 30px ;">Tabla de centros registrados</h2>
+    <article>
+        <section>
+            <div class="ll">
+                <div class="container color">
+                    <div class="row">
+                        <div class="card-body col-md pp">
+                            <!-- Manipular Messages-->
+                            {% if messages %}
 
-            <p class="text-center" style="padding-bottom: 20px ;">Ten precaución al manejar los datos</p>
+                            <div class="alerta alert-danger">
+                                {% for x in messages %}
+                                <strong>{{ x }}</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
+                            <form action="{% url 'guardar_comuna' %}" method="POST" name="formulario_comuna"
+                                id="formulario_comuna" class="bord">
+                                {% csrf_token %}
 
-            <div class="text-center">
-                <a href="{% url 'registrar_centro' %}"><button style="margin-bottom: 20px;"
-                        class="btn btn-primary ">Agregar centro</button> </a>
-                <a href="{% url 'registrar_comuna' %}"><button style="margin-bottom: 20px;"
-                        class="btn btn-primary ">Agregar comuna</button> </a>
-                <form action="{% url 'buscar_centro' %}" method="POST">
-                    {% csrf_token %}
-                    <input class="form-control inputstyle dps" type="text" placeholder="Buscar por nombre"
-                        style="width: 241px;" name="b_centro" id="b_centro">
-                    <button class="btn btn-primary b1" type="submit">Buscar</button>
-                </form>
-            </div>
-            <br>
-            {% if messages %}
+                                <div id="in" class="text-center">Registrar Admin</div>
+                                <div class="form-group a">
+                                    <label for="Nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="Nombre" name="Nombre"
+                                        placeholder="Ponga su nombre">
+                                </div>
+                               
+                               
 
-            <div class="container">
-                {% for x in messages %}
-                <h4>{{ x }}</h4>
-                {% endfor%}
-            </div>
-            {% endif %}
-            <table class="table ">
-                <thead class="thead-dark tablita">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Comuna</th>
-                        <th>Direccion</th>
-                        <th>Accion</th>
-                    </tr>
-                </thead>
-                <tbody class="thead-light" style="background: white;">
-                    {% for c in Centros %}
-                    <tr>
-
-                        <th class="th">{{c.id_centro}}</th>
-                        <th class="th">{{c.nombre}}</th>
-                        <th class="th">{{c.descripcion}}</th>
-                        <th class="th">{{c.comuna.nombre}}</th>
-                        <th class="th">{{c.direccion}} </th>
-                        
-                        <th><a href="{% url 'eliminar_centro' c.id_centro %}"><button
-                                    class="btn btn-primary bbbt">Eliminar</button></a>
-                            <a href="{% url 'modificar_centro' c.id_centro %}"><button
-                                    class="btn btn-primary bbbt">Modificar</button> </a>
-                        </th>
-                    </tr>
-                    {% endfor %}
-                    {% for c in cn1 %}
-                    <tr>
-
-                       <th class="th">{{c.id_centro}}</th>
-                        <th class="th">{{c.nombre}}</th>
-                        <th class="th">{{c.descripcion}}</th>
-                        
-                        <th><a href="{% url 'eliminar_centro' c.id_centro %}"><button
-                                    class="btn btn-primary bbbt">Eliminar</button></a>
-                            <a href="{% url 'modificar_centro' c.id_centro %}"><button
-                                    class="btn btn-primary bbbt">Modificar</button> </a>
-                        </th>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% else %}
-    <div class="ll">
-        <div class="container color">
-            <div class="row">
-                <div class="card-body">
-                    <h1 class="text-center">NO DISPONE DE PERMISO</h1>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary bbbt">Registrar Comuna</button>
+                                </div>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    {% endif %}
-
+        </section>
+        <script src="{% static 'ventas/js/script.js' %}"></script>
+    </article>
+   
 </body>
-
 
 </html>

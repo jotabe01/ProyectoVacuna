@@ -217,8 +217,13 @@ def registrar2(request):
 
 
 def registrar_centro(request):
-   
-    return render(request,'puntos/registrar_centro.html')
+    comunas = Comuna.objects.all()
+    contexto = {"comunas": comunas}
+    return render(request,'puntos/registrar_centro.html',contexto)
+
+def registrar_comuna(request):
+    
+    return render(request,'puntos/registrar_comuna.html')
 
 
 
@@ -228,15 +233,26 @@ def lista_centros(request):
     return render(request,'puntos/lista_centros.html', contexto)
 
 
+def guardar_comuna(request):
+    nom_com = request.POST['Nombre']
+   
+
+    Comuna.objects.create(nombre = nom_com)
+    messages.success(request, "Comuna agregada correctamente")
+    return render(request,'puntos/lista_centros.html')
+
 
 
 
 
 def guardar_centro(request):
-    nom_cen = request.POST['nom_centro']
-    des_cen = request.POST['des_centro']
+    nom_cen = request.POST['nom_cent']
+    des_cen = request.POST['des_cent']
+    com = request.POST['comuna']
+    dire = request.POST['direc']
+    com2 = Comuna.objects.get(id_comuna = com)
+    Centro.objects.create(nombre = nom_cen, descripcion = des_cen, direccion = dire , comuna = com2)
 
-    Centro.objects.create(nombre = nom_cen, descripcion = des_cen)
     messages.success(request, "Centro Agregado exitosamente")
     return render(request,'puntos/registrar_centro.html')
 
@@ -252,26 +268,16 @@ def eliminar_centro(request, id):
 
 def modificar_centro(request, id):
     centro1 = Centro.objects.get(id_centro = id)
+    comunas = Comuna.objects.all()
    
     contexto = {
-        "modificar_centro":centro1
+        "modificar_centro":centro1,
+        "comunas":comunas
     }
     return render(request,'puntos/modificar_centro.html',contexto)
 
 
 
-def funcionmodcentro(request):
-    idcentro = request.POST['id_centro']
-    nombrec = request.POST['nom_centro']
-    des_centro = request.POST['des_centro']
-
-    centro1 = Centro.objects.get(id_centro = idcentro)
-    centro1.nombre = nombrec
-    centro1.descripcion = des_centro
-    centro1.save()
-
-    messages.success(request, 'Centro modificado')
-    return redirect('lista_centros')
 
 
 
@@ -315,10 +321,12 @@ def registrar_vacuna(request):
 
 def guardar_vacuna(request):
     nom_vac = request.POST['nom_vacu']
+    lab_vac = request.POST['lab_vacu']
+    des_vac = request.POST['des_vacu']
     
-    Vacuna.objects.create(nombre = nom_vac)
+    Vacuna.objects.create(nombre = nom_vac, lab = lab_vac, descripcion = des_vac)
     messages.success(request, "Vacuna Agregado exitosamente")
-    return render(request,'puntos/registrar_vacuna.html')
+    return render(request,'puntos/lista_vacunas.html')
 
 
 def eliminar_vacuna(request, id):
@@ -342,17 +350,44 @@ def modificar_vacuna(request, id):
     return render(request,'puntos/modificar_vacuna.html',contexto)
 
 def funcionmodvac(request):
-    idvacun = request.POST['id_vacuna']
-    nombrev = request.POST['nom_vac']
+    id_vac = request.POST['id_vacu']
+    nom_vac = request.POST['nom_vacu']
+    lab_vac = request.POST['lab_vacu']
+    des_vac = request.POST['des_vacu']
    
 
-    vacuna1 = Vacuna.objects.get(id_vacuna = idvacun)
-    vacuna1.nombre = nombrev
+    vacuna1 = Vacuna.objects.get(id_vacuna = id_vac)
+    vacuna1.nombre = nom_vac
+    vacuna1.lab = lab_vac
+    vacuna1.descripcion = des_vac
+
     
     vacuna1.save()
 
     messages.success(request, 'Vacuna  modificada')
     return redirect('lista_vacunas')
+
+def funcionmodcen(request):
+    id_cen = request.POST['id_cent']
+    nom_cen = request.POST['nom_cent']
+    des_cen = request.POST['des_cent']
+    com = request.POST['comuna']
+    dire = request.POST['direc']
+    com_2 = Comuna.objects.get(id_comuna = com)
+   
+
+    centro1 = Centro.objects.get(id_centro = id_cen)
+    centro1.nombre = nom_cen
+    centro1.descripcion = des_cen
+    centro1.comuna = com_2
+    centro1.direccion = dire
+   
+
+    
+    centro1.save()
+
+    messages.success(request, 'Centro modificado correctamente')
+    return redirect('lista_centros')
 
 def buscar_vacuna(request):
     if Vacuna.nombre:

@@ -78,11 +78,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -105,35 +107,74 @@
             </div>
         </nav>
     </header>
-     <!-- Manipular Messages-->
-     {% if messages %}
+    <article>
+        <section>
+            <div class="ll">
+                <div class="container color">
+                    <div class="row">
+                        <div class="card-body col-md pp">
+                            <!-- Manipular Messages-->
+                            {% if messages %}
 
-     <div class="alerta alert-danger">
-         {% for x in messages %}
-         <strong>{{ x }}</strong>
-         {% endfor%}
-     </div>
-     {% endif %}
-    <form action="{% url 'funcionmodcentro' %}" method="POST" name="formulario_modc" id="formulario_modc" class="bord">
-        {% csrf_token %}
-        <div id="in" class="text-center">modificar centro</div>
-        <div class="form-group a">
-            <label for="id_centro">id del centro</label>
-            <input type="text" class="form-control" id="id_centro" value="{{ modificar_centro.id_centro }}" name="id_centro" placeholder="Ej: Gestion Agil" required readonly>
-        </div>
-        <div class="form-group a">
-            <label for="nom_centro">Nombre del centro</label>
-            <input type="text" class="form-control" id="nom_centro" value="{{ modificar_centro.nombre }}" name="nom_centro" placeholder="Ej: Gestion Agil">
-        </div>
-        <div class="form-group">
-            <label for="des_centro">descripcion</label>
-            <input type="text" class="form-control" id="des_centro" name="des_centro" value="{{ modificar_centro.descripcion }}"
-                placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
-            <button type="submit" class="btn btn-primary">modificar centro</button>
-        </div>
+                            <div class="alerta alert-danger">
+                                {% for x in messages %}
+                                <strong>{{ x }}</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
+                            <form action="{% url 'funcionmodcen' %}" method="POST" name="formulario_modc"
+                                id="formulario_modc" class="bord">
+                                {% csrf_token %}
+                                <div id="in" class="text-center">modificar centro</div>
+                                <div class="form-group a">
+                                    <label for="id_cent">ID</label>
+                                    <input type="text" class="form-control" id="id_cent"
+                                        value="{{ modificar_centro.id_centro }}" name="id_cent"
+                                        placeholder="Ej: Gestion Agil" required readonly>
+                                </div>
+                                <div class="form-group a">
+                                    <label for="nom_cent">Nombre</label>
+                                    <input type="text" class="form-control" id="nom_cent"
+                                        value="{{ modificar_centro.nombre }}" name="nom_cent"
+                                        placeholder="Ej: Gestion Agil">
+                                </div>
+                                <div class="form-group">
+                                    <label for="des_cent">Descripcion</label>
+                                    <input type="text" class="form-control" id="des_cent" name="des_cent"
+                                        value="{{ modificar_centro.descripcion }}"
+                                        placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+                                </div>
+                                <div class="form-group">
+                                    <label>Comuna</label>
+                                    <select class="form-control" id="comuna" name="comuna">
+                                        {%for c in comunas %}
+                                        {% if c.id_comuna == modificar_centro.comuna.id_comuna %}
+                                        <option value="{{ c.id_comuna }} " selected>{{ c.nombre }}</option>
+                                        {% else %}
+                                        <option value="{{ c.id_comuna }} ">{{ c.nombre }}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="direc">Direccion</label>
+                                    <input type="text" class="form-control" id="direc" name="direc"
+                                        value="{{ modificar_centro.direccion }}"
+                                        placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary bbbt">Registrar</button>
+                                </div>
 
 
-    </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="{% static 'ventas/js/script.js' %}"></script>
+    </article>
     <footer class="site-info">
 
 

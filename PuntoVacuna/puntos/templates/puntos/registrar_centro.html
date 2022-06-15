@@ -78,11 +78,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -105,31 +107,60 @@
             </div>
         </nav>
     </header>
-     <!-- Manipular Messages-->
-     {% if messages %}
+    <article>
+        <section>
+            <div class="ll">
+                <div class="container color">
+                    <div class="row">
+                        <div class="card-body col-md pp">
+                            <!-- Manipular Messages-->
+                            {% if messages %}
 
-     <div class="alerta alert-danger">
-         {% for x in messages %}
-         <strong>{{ x }}</strong>
-         {% endfor%}
-     </div>
-     {% endif %}
-    <form action="{% url 'guardar_centro' %}" method="POST" name="formulario_centro" id="formulario_centro" class="bord">
-        {% csrf_token %}
-        <div id="in" class="text-center">Registrar centro</div>
-        <div class="form-group a">
-            <label for="nom_centro">Nombre del centro</label>
-            <input type="text" class="form-control" id="nom_centro" name="nom_centro" placeholder="Ej: Gestion Agil">
-        </div>
-        <div class="form-group">
-            <label for="des_centro">descripcion</label>
-            <input type="text" class="form-control" id="des_centro" name="des_centro"
-                placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
-                <button type="submit" class="btn btn-primary">registrar centro</button>
-        </div>
+                            <div class="alerta alert-danger">
+                                {% for x in messages %}
+                                <strong>{{ x }}</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
+                            <form action="{% url 'guardar_centro' %}" method="POST" name="formulario_centro"
+                                id="formulario_centro" class="bord">
+                                {% csrf_token %}
+                                <div id="in" class="text-center">Registrar centro</div>
+                                <div class="form-group a">
+                                    <label for="nom_cent">Nombre del centro</label>
+                                    <input type="text" class="form-control" id="nom_cent" name="nom_cent"
+                                        placeholder="Ej: ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="des_cent">Descripcion</label>
+                                    <input type="text" class="form-control" id="des_cent" name="des_cent"
+                                        placeholder="Ej: ">
+                                </div>
+                                <div class="form-group">
+                                    <label>Comuna</label>
+                                    <select class="form-control" id="comuna" name="comuna">
+                                        {%for c in comunas %}
+                                        <option value="{{ c.id_comuna }} ">{{ c.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="direc">Direccion</label>
+                                    <input type="text" class="form-control" id="direc" name="direc" placeholder="Ej: ">
+                                </div>
 
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary bbbt">Registrar Centro</button>
+                                </div>
 
-    </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="{% static 'ventas/js/script.js' %}"></script>
+    </article>
     <footer class="site-info">
 
 

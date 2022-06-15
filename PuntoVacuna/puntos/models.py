@@ -27,15 +27,8 @@ class Usuario(models.Model):
 class Vacuna(models.Model):
     id_vacuna = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=30,null=True)
-
-    def __str__(self):
-        return self.nombre
-
-
-class Centro(models.Model):
-    id_centro = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=30,null=True)
-    descripcion = models.CharField(max_length=300,null=True)
+    lab = models.CharField(max_length=30,null=True)
+    descripcion = models.CharField(max_length=1000,null=True)
 
     def __str__(self):
         return self.nombre
@@ -46,6 +39,17 @@ class Comuna(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Centro(models.Model):
+    id_centro = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=30,null=True)
+    direccion = models.CharField(max_length=100,null=True)
+    descripcion = models.CharField(max_length=300,null=True)
+    comuna = models.ForeignKey(Comuna,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nombre
+
+
 
 class DireccionU(models.Model):
     id_direccionu = models.AutoField(primary_key=True)

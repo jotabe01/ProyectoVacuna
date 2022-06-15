@@ -78,11 +78,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -105,32 +107,65 @@
             </div>
         </nav>
     </header>
-     <!-- Manipular Messages-->
-     {% if messages %}
+    <article>
+        <section>
+            <div class="ll">
+                <div class="container color">
+                    <div class="row">
+                        <div class="card-body col-md pp">
+                            <!-- Manipular Messages-->
+                            {% if messages %}
 
-     <div class="alerta alert-danger">
-         {% for x in messages %}
-         <strong>{{ x }}</strong>
-         {% endfor%}
-     </div>
-     {% endif %}
-    <form action="{% url 'funcionmodvac' %}" method="POST" name="formulario_modv" id="formulario_modv" class="bord">
-        {% csrf_token %}
-        <div id="in" class="text-center">modificar vacuna</div>
-        <div class="form-group a">
-            <label for="id_centro">id del centro</label>
-            <input type="text" class="form-control" id="id_vacuna" value="{{ modificar_vacuna.id_vacuna }}" name="id_vacuna" placeholder="Ej: Gestion Agil" required readonly>
-        </div>
-      
-        <div class="form-group">
-            <label for="des_centro">descripcion</label>
-            <input type="text" class="form-control" id="nom_vac" name="nom_vac" value="{{ modificar_vacuna.nombre }}"
-                placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
-            <button type="submit" class="btn btn-primary">modificar vacuna</button>
-        </div>
+                            <div class="alerta alert-danger">
+                                {% for x in messages %}
+                                <strong>{{ x }}</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
+                            <form action="{% url 'funcionmodvac' %}" method="POST" name="formulario_modv"
+                                id="formulario_modv" class="bord">
+                                {% csrf_token %}
+                                <div id="in" class="text-center">Modificar Vacuna</div>
+                                <div class="form-group a">
+                                    <label for="id_vacu">ID</label>
+                                    <input type="text" class="form-control" id="id_vacu"
+                                        value="{{ modificar_vacuna.id_vacuna }}" name="id_vacu"
+                                        placeholder="Ej: Gestion Agil" required readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nom_vacu">Nombre</label>
+                                    <input type="text" class="form-control" id="nom_vacu" name="nom_vacu"
+                                        value="{{ modificar_vacuna.nombre }}"
+                                        placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="lab_vacu">Laboratorio</label>
+                                    <input type="text" class="form-control" id="lab_vacu" name="lab_vacu"
+                                        value="{{ modificar_vacuna.lab }}"
+                                        placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="des_vacu">Descripcion</label>
+                                    <input type="text" class="form-control" id="des_vacu" name="des_vacu"
+                                        value="{{ modificar_vacuna.descripcion}}"
+                                        placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
+
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary bbbt">Modificar</button>
+                                </div>
 
 
-    </form>
+                            </form>
+
+                        </div>
+                    </div>
+        </section>
+        <script src="{% static 'ventas/js/script.js' %}"></script>
+    </article>
     <footer class="site-info">
 
 
