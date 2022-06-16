@@ -18,19 +18,22 @@
     <script type="text/javascript"
         src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <title>PuntoVacuna-Inicio Sesion</title>
+    <title>Admin - Modificar Vacuna</title>
     <script>
         $(document).ready(function () {
-            $("#formulario_inicio").validate({
+            $("#formulario_modv").validate({
                 rules: {
-                    correo: {
+                    nom_vacu: {
                         required: true,
-                        minlength: 1,
-                        email: true
+                        
                     },
-                    Contraseña: {
+                    lab_vacu: {
                         required: true,
-                        minlength: 1
+                       
+                    },
+                    des_vacu: {
+                        required: true,
+                       
                     }
                 }
             });

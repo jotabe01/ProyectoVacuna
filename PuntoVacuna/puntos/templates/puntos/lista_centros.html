@@ -56,11 +56,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -131,7 +133,7 @@
                         <th class="th">{{c.descripcion}}</th>
                         <th class="th">{{c.comuna.nombre}}</th>
                         <th class="th">{{c.direccion}} </th>
-                        
+
                         <th><a href="{% url 'eliminar_centro' c.id_centro %}"><button
                                     class="btn btn-primary bbbt">Eliminar</button></a>
                             <a href="{% url 'modificar_centro' c.id_centro %}"><button
@@ -142,10 +144,12 @@
                     {% for c in cn1 %}
                     <tr>
 
-                       <th class="th">{{c.id_centro}}</th>
+                        <th class="th">{{c.id_centro}}</th>
                         <th class="th">{{c.nombre}}</th>
                         <th class="th">{{c.descripcion}}</th>
-                        
+                        <th class="th">{{c.comuna.nombre}}</th>
+                        <th class="th">{{c.direccion}} </th>
+
                         <th><a href="{% url 'eliminar_centro' c.id_centro %}"><button
                                     class="btn btn-primary bbbt">Eliminar</button></a>
                             <a href="{% url 'modificar_centro' c.id_centro %}"><button

@@ -18,19 +18,26 @@
     <script type="text/javascript"
         src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <title>PuntoVacuna-Inicio Sesion</title>
+    <title>Admin - Registrar Centro</title>
     <script>
         $(document).ready(function () {
-            $("#formulario_inicio").validate({
+            $("#formulario_centro").validate({
                 rules: {
-                    correo: {
+                    nom_cent: {
                         required: true,
-                        minlength: 1,
-                        email: true
+                   
                     },
-                    Contraseña: {
+                    des_cent: {
                         required: true,
-                        minlength: 1
+                   
+                    },
+                    comuna: {
+                        required: true,
+                   
+                    },
+                    direc: {
+                        required: true,
+                      
                     }
                 }
             });

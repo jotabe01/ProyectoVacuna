@@ -239,7 +239,7 @@ def guardar_comuna(request):
 
     Comuna.objects.create(nombre = nom_com)
     messages.success(request, "Comuna agregada correctamente")
-    return render(request,'puntos/lista_centros.html')
+    return redirect('lista_centros')
 
 
 
@@ -254,7 +254,7 @@ def guardar_centro(request):
     Centro.objects.create(nombre = nom_cen, descripcion = des_cen, direccion = dire , comuna = com2)
 
     messages.success(request, "Centro Agregado exitosamente")
-    return render(request,'puntos/registrar_centro.html')
+    return redirect('lista_centros')
 
 
 def eliminar_centro(request, id):
@@ -326,7 +326,7 @@ def guardar_vacuna(request):
     
     Vacuna.objects.create(nombre = nom_vac, lab = lab_vac, descripcion = des_vac)
     messages.success(request, "Vacuna Agregado exitosamente")
-    return render(request,'puntos/lista_vacunas.html')
+    return redirect('lista_vacunas')
 
 
 def eliminar_vacuna(request, id):

@@ -18,19 +18,26 @@
     <script type="text/javascript"
         src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
-    <title>PuntoVacuna-Inicio Sesion</title>
+    <title>Admin - Modificar Centro</title>
     <script>
         $(document).ready(function () {
-            $("#formulario_inicio").validate({
+            $("#formulario_modc").validate({
                 rules: {
-                    correo: {
+                    nom_cent: {
                         required: true,
-                        minlength: 1,
-                        email: true
+                       
                     },
-                    Contraseña: {
+                    des_cent: {
                         required: true,
-                        minlength: 1
+                       
+                    },
+                    comuna: {
+                        required: true,
+                       
+                    },
+                    direc: {
+                        required: true,
+                       
                     }
                 }
             });
@@ -125,7 +132,7 @@
                             <form action="{% url 'funcionmodcen' %}" method="POST" name="formulario_modc"
                                 id="formulario_modc" class="bord">
                                 {% csrf_token %}
-                                <div id="in" class="text-center">modificar centro</div>
+                                <div id="in" class="text-center">Modificar Centro</div>
                                 <div class="form-group a">
                                     <label for="id_cent">ID</label>
                                     <input type="text" class="form-control" id="id_cent"
@@ -163,7 +170,7 @@
                                         placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary bbbt">Registrar</button>
+                                    <button type="submit" class="btn btn-primary bbbt">Modificar</button>
                                 </div>
 
 
