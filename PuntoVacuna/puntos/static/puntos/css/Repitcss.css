@@ -7,12 +7,16 @@ body{
     height: 800px; 
     top: 100px;
     position: absolute;
-    background-image: url("/static/ventas/img/fondo3.jpg");
+    background-image: url("/static/puntos/img/fondito.jfif"); 
+    background-size: 100%;
     background: absolute;
     background-attachment: fixed;
 }
 .inputstyle{
     margin-left: 0% !important;
+}
+.small{
+    color: white !important;
 }
 .b1{
     background: #5EF2FE;

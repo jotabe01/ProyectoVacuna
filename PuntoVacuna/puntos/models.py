@@ -72,3 +72,14 @@ class DireccionC(models.Model):
     def __str__(self):
         return self.id_direccion
 
+
+class Contacto(models.Model):
+    id_contac = models.AutoField(primary_key=True)    
+    nombre = models.CharField(max_length=50,null=True) 
+    apellido = models.CharField(max_length=50,null=True)
+    correo = models.CharField(max_length=50,null=True)
+    comentario = models.CharField(max_length=300)
+    asunto = models.CharField(max_length=30, null=True)
+
+    def __str__(self):
+        return self.nombre

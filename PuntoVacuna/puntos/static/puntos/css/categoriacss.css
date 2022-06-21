@@ -15,9 +15,6 @@ body{
 .inputstyle{
     margin-left: 0% !important;
 }
-.tabla_prod{
-    background: white;
-}
 .b1{
     background: #5EF2FE;
     color: black;
@@ -27,22 +24,19 @@ body{
 .bordernav{
     box-shadow: 0 0 10px 0.5px grey;
 }
-.color{
-    background: white;
-    margin-bottom: 150px;
+footer{
+    height: 250px;
+    width: 100%;
+    bottom: 0;
 }
 .colornav{
     background: #0A4CDB; 
-}
-.letra{
-    color: white;
 }
 .site-info{
     color: #ffffff;
     background-color: #222222;
     text-align: center;
     padding: 20px;
-    margin-top: 20px;
     font-size: 15px;
 }
 .inside-site-info{
@@ -50,43 +44,69 @@ body{
     margin-right: auto;
     max-width: 1185px;
 }
+@media screen and (max-width: 770px){
+    .ll{
+        width: 550px;   
+    }
+    .cp{
+        margin: auto;
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+    .txt1{
+        text-align: center;
+    }
+}
+@media screen and (max-width: 550px){
+    footer{
+        width: 550px;
+    }
+}
+/*Edit Precio*/
+.precio{
+    color: red;
+    font-size:30px;
+}
+/*Caja1*/
+.caja1{
+    padding-top: 1px;
+    background: white;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 12px #ccc;
+}
+/*Margin Nav1*/
+.margnav{
+    margin-top: 2%;
+}
+/* Boton Agregar */
+.b2{
+    background: #0A4CDB;
+    color: white;
+    border: solid #0A4CDB;
+    border-radius: 10%;
+    margin-left: 25%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+}
+/* Lista */
+.list{
+    list-style: none;
+}
+/* Cajas Productos */
+.cp{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.btn-efect:hover {
+    background-color: #44BBFF;
+    border: solid #3A9EF1;
+}
 .espaciadonavbar{
     margin-left: auto;
 }
 #map {
 	height: 200px;
 	width: 100%;
-}
-.tttt{
-    box-shadow: 0px 0px 12px #ccc;
-}
-footer{
-    height: 250px;
-    width: 100%;
-    bottom: 0;
-    background: black;
-}
-@media screen and (max-width: 550px){
-    footer{
-        width: 550px ;
-    }
-}
-.error{
-    color: red;
-}
-.th-comentario{
-    height: 100px;
-    overflow-y: scroll;
-    width: 300px;
-}
-.btn-borrar{
-    margin-top: 40px;
-}
-.alerta{
-    position: relative;
-    padding: .75rem 1.25rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
 }
 @media screen and (max-width: 1490px) {
     .letras{

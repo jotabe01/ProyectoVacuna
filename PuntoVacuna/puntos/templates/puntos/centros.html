@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'puntos/css/cuentacss.css' %}">
+    <link rel="stylesheet" href="{% static 'puntos/css/contacto.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
+    <title>Admin-Listado Centros</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        ul.nav-pills {
+            top: 100px;
+            position: fixed;
+        }
+
+        div.col-8 div {
+            height: auto;
+            margin: 1%;
+
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="1">
+    <header>
+        <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
+            <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;"
+                    src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
+            <form class="form-inline " action="" method="POST">
+                {% csrf_token %}
+                <input class="form-control ml-sm-5 inputstyle letras" type="text"
+                    placeholder="Buscar vacunas disponibles" style="width: 241px;" required name="dato" id="dato">
+                <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
+            </form>
+            <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link ml-sm-2" href="">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link ml-sm-2" href="">Contactanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="">Centros por comuna</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav espaciadonavbar">
+
+
+
+
+                    {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar
+                            Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
+
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="">{{user.username}}</a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'registrar' %}">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+     
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-4" id="myScrollspy">
+                    <ul class="nav nav-pills flex-column">   <h2 style="color: white;">Comunas</h2>
+                        {% for c in comunas %}
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: white;" href="#{{c.nombre}}">{{c.nombre}}</a>
+                        </li>
+                        {% endfor %}
+
+
+
+                    </ul>
+                </nav>
+                <div class="col-sm-9 col-8">
+                    {% for c in comunas %}
+                    <div id="{{c.nombre}}" class="tarjeta"
+                        style="margin-top: 70px; margin-bottom: 2%px;">
+                        <h1 style="color: white;">{{c.nombre}}</h1>
+                        {% for x in centros %}
+                        {% if x.comuna.nombre == c.nombre %}
+                        <div class="container">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    Centro medico de {{c.nombre}}
+                                </div>
+                                <div class="card-body">
+                                    <h6>Nombre:</h2>
+                                        <h5 class="card-title">{{x.nombre}}</h5>
+                                        <h6>Descripcion:</h2>
+                                            <p class="card-text">{{x.descripcion}}</p>
+                                            <h6>Direccion: {{x.direccion}}</h2>
+                                                <a href="#" class="btn btn-primary">Ver en GoogleMaps</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Vacunas disponibles:
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<footer class="site-info">
+
+
+    <div class="inside-site-info">
+        <span>PuntoVacuna-Todos los derechos Reservados [2022]</span>
+    </div>
+</footer>
+
+
+</html>

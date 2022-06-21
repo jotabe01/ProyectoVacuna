@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU
+from .models import Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU, Contacto
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -10,6 +10,32 @@ def home(request):
 
 def inicio(request):
 	return render(request, 'puntos/inicio.html')
+
+def contacto(request):
+    return render(request, 'puntos/Contacto.html')
+
+def centros(request):
+    comunas = Comuna.objects.all()
+    centros = Centro.objects.all()
+    contexto = {
+        "comunas": comunas,
+        "centros": centros,
+    }
+    
+    return render (request,'puntos/centros.html',contexto)
+
+def contac(request):
+    nombre_c = request.POST['Nombre']
+    apellido_c = request.POST['Apellido']
+    correo_c = request.POST['correo']
+    asunto_c = request.POST['Asunto']
+    comentario_c = request.POST['com']
+
+    Contacto.objects.create(nombre = nombre_c,apellido = apellido_c,correo = correo_c,comentario = comentario_c , asunto = asunto_c)
+
+    messages.success(request,'Mensaje enviado exitosamente.')
+
+    return redirect('contacto') 
 	
 
 def lista_usuarios(request):
@@ -83,6 +109,7 @@ def modificar_usuario(request,id):
     }
     return render(request,'puntos/modificar_usuario.html',contexto)
 	
+
 
 def modificar_us(request):
     id_usr=request.POST['id_usr']

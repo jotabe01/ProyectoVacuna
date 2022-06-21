@@ -4,14 +4,19 @@
     padding-top: 2%;
     padding-bottom: 3%;
     box-shadow: 0px 0px 12px #ccc;
+    background-image: url("/static/puntos/img/fondito.jfif"); 
+    background-size: 100%;
+    
 }
+label{color: white;}
 #in{
     box-shadow: 0px 0px 12px #ccc;
     border-bottom: 1px solid #5EF2FE;
     padding-top: 1%;
     padding-bottom: 1%;
     width: 10% left;
-    background-image: url("/static/ventas/img/fondo3.jpg");
+    color: white;
+    
     
 }
 .espaciado{
