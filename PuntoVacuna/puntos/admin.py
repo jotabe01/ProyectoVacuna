@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU
+from .models import Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU,Comentario
 # Register your models here.
 
 
@@ -10,3 +10,4 @@ admin.site.register(Centro)
 admin.site.register(Vacuna)
 admin.site.register(DireccionC)
 admin.site.register(DireccionU)
+admin.site.register(Comentario)

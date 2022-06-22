@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU, Contacto
+from .models import Comentario, Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU, Contacto
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
@@ -17,9 +17,13 @@ def contacto(request):
 def centros(request):
     comunas = Comuna.objects.all()
     centros = Centro.objects.all()
+    usuario = Usuario.objects.all()
+    comentario = Comentario.objects.all()
     contexto = {
         "comunas": comunas,
         "centros": centros,
+        "usuario": usuario,
+        "comentario":comentario,
     }
     
     return render (request,'puntos/centros.html',contexto)
@@ -355,6 +359,18 @@ def guardar_vacuna(request):
     Vacuna.objects.create(nombre = nom_vac, lab = lab_vac, descripcion = des_vac)
     messages.success(request, "Vacuna Agregado exitosamente")
     return redirect('lista_vacunas')
+
+def guardar_comentario(request):
+    com1 = request.POST['com']
+    cen1 = request.POST['cen']
+    us1 = request.POST['us']
+    cen2 = Centro.objects.get(id_centro = cen1)
+    us2 = Usuario.objects.get(num_run = us1)
+
+    
+    Comentario.objects.create(comentario = com1, centro = cen2, usuario = us2)
+    messages.success(request, "Comentario guardado")
+    return redirect('centros')
 
 
 def eliminar_vacuna(request, id):

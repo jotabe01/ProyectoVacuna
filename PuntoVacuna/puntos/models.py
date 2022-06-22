@@ -84,3 +84,14 @@ class Contacto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Comentario(models.Model):
+    id_contac = models.AutoField(primary_key=True)   
+    comentario = models.CharField(max_length=300, null=True)
+    like = models.IntegerField(null=True)
+    dislike = models.IntegerField(null=True)
+    centro = models.ForeignKey(Centro,on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.comentario

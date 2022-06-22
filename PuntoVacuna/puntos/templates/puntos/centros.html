@@ -33,7 +33,16 @@
             margin: 1%;
 
         }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
     </style>
+
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy" data-offset="1">
@@ -76,11 +85,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -103,12 +114,14 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
-     
+
         <div class="container-fluid">
             <div class="row">
                 <nav class="col-sm-3 col-4" id="myScrollspy">
-                    <ul class="nav nav-pills flex-column">   <h2 style="color: white;">Comunas</h2>
+                    <ul class="nav nav-pills flex-column">
+                        <h2 style="color: white;">Comunas</h2>
                         {% for c in comunas %}
                         <li class="nav-item">
                             <a class="nav-link" style="color: white;" href="#{{c.nombre}}">{{c.nombre}}</a>
@@ -119,10 +132,19 @@
 
                     </ul>
                 </nav>
+
+
                 <div class="col-sm-9 col-8">
+                    {% if messages %}
+                    <div class="alert alert-info" style="background-color: #5EF2FE;">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {% for x in messages %}
+                        <strong>{{ x }}</strong>
+                        {% endfor%}
+                    </div>
+                    {% endif %}
                     {% for c in comunas %}
-                    <div id="{{c.nombre}}" class="tarjeta"
-                        style=" margin-bottom: 2%px;">
+                    <div id="{{c.nombre}}" class="tarjeta" style=" margin-bottom: 2%px;">
                         <h1 style="color: white; padding-left: 27px;">{{c.nombre}}</h1>
                         {% for x in centros %}
                         {% if x.comuna.nombre == c.nombre %}
@@ -137,12 +159,82 @@
                                         <h6>Descripcion:</h2>
                                             <p class="card-text">{{x.descripcion}}</p>
                                             <h6>Direccion: {{x.direccion}}</h2>
-                                                <a href={{x.ubicacion}} target="_blank" class="btn btn-primary">Ver en GoogleMaps</a>
+                                                <a href={{x.ubicacion}} target="_blank" class="btn btn-primary">Ver en
+                                                    GoogleMaps</a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Vacunas disponibles:
                                 </div>
+                                <button id="readbtn" onclick="mostrar();" class="btn btn-primary">Mostrar
+                                    comentarios</button>
+                                <span class="" id="hide">
+                                    <form action="{% url 'guardar_comentario' %}" method="POST" name="formulario_comuna"
+                                        id="formulario_comuna" class="">
+                                        {% csrf_token %}
+
+
+                                        <div class="form-group a">
+                                            <input type="text" class="form-control" id="cen" name="cen"
+                                                value="{{x.id_centro}}" placeholder="Ponga su nombre" hidden>
+                                            {% for u in usuario %}
+                                            {% if u.nombre_usr == user.username %}
+                                            <input type="text" class="form-control " id="us" name="us" hidden
+                                                value="{{u.num_run}}" placeholder="Ponga su nombre">
+                                            {% endif %}
+                                            {% endfor %}
+
+                                            <input type="text" style="margin-right: 1; display: inline-block; "
+                                                class="form-control col-9 " id="com" name="com" placeholder="">
+
+                                            <img style="width: 35px; position: absolute;"
+                                                src="{% static 'puntos/img/enviar.PNG' %}">
+                                            <button type="submit" class=" col-1 "
+                                                style="top: -10px; padding: 15px; opacity: 0;">
+
+                                            </button>
+
+
+                                        </div>
+
+
+                                        <div class="text-center">
+
+                                        </div>
+                                        <br>
+                                    </form>
+                                    {% for co in comentario %}
+                                    {% if x.id_centro == co.centro.id_centro %}
+                                    <div class="">
+                                        <b>{{co.usuario.nombre_usr}}:</b>
+                                        <br>
+                                        {{co.comentario}}
+
+                                    </div>
+                                    <hr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <hr>
+                                    <button id="readbtn" onclick="ocultar();" class="btn btn-primary">Ocultar
+                                        comentarios</button>
+                                </span>
+
+
+                                <script>
+                                    function mostrar() {
+                                        document.getElementById('').style.display = 'block'
+                                        document.getElementById('readbtn').style.display = 'none'
+                                    }
+
+                                    function ocultar() {
+                                        document.getElementById('').style.display = 'none'
+                                        document.getElementById('readbtn').style.display = 'block'
+                                    }
+
+
+                                </script>
+
                             </div>
+
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -152,7 +244,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{% static 'puntos/js/script.js' %}"></script>
 </body>
 <footer class="site-info">
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
-from .views import  eliminar_centro,contacto,centros,contac, guardar_centro, home,registrar_comuna,guardar_comuna, inicio, lista_centros, lista_usuarios, modificar_centro, registrar_usuario,registro, eliminar_usuario, form_login, login_view, logout_view, registrar2, modificar_usuario, modificar_us, buscar_usuario, registrar,registrar_centro,  lista_centros, eliminar_centro, guardar_centro, modificar_centro, funcionmodcen, buscar_centro, guardar_vacuna, eliminar_vacuna, registrar_vacuna, lista_vacunas, funcionmodvac, modificar_vacuna, buscar_vacuna
+from .views import  eliminar_centro,contacto,centros,contac,guardar_comentario, guardar_centro, home,registrar_comuna,guardar_comuna, inicio, lista_centros, lista_usuarios, modificar_centro, registrar_usuario,registro, eliminar_usuario, form_login, login_view, logout_view, registrar2, modificar_usuario, modificar_us, buscar_usuario, registrar,registrar_centro,  lista_centros, eliminar_centro, guardar_centro, modificar_centro, funcionmodcen, buscar_centro, guardar_vacuna, eliminar_vacuna, registrar_vacuna, lista_vacunas, funcionmodvac, modificar_vacuna, buscar_vacuna
 
 
 urlpatterns = [
@@ -24,7 +24,9 @@ urlpatterns = [
     path('registrar_centro',login_required(registrar_centro), name='registrar_centro'),
     path('lista_centros',login_required(lista_centros), name="lista_centros"),
     path('guardar_centro',guardar_centro, name="guardar_centro"),
+    path('guardar_comentario',guardar_comentario, name="guardar_comentario"),
     path('eliminar_centro/<id>',eliminar_centro, name="eliminar_centro"),
+    
     
     path('modificar_centro/<id>', modificar_centro,name="modificar_centro"),
     path('funcionmodcen',funcionmodcen,name="funcionmodcen"),
