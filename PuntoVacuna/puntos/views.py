@@ -277,8 +277,9 @@ def guardar_centro(request):
     des_cen = request.POST['des_cent']
     com = request.POST['comuna']
     dire = request.POST['direc']
+    ubi1 = request.POST['ubi']
     com2 = Comuna.objects.get(id_comuna = com)
-    Centro.objects.create(nombre = nom_cen, descripcion = des_cen, direccion = dire , comuna = com2)
+    Centro.objects.create(nombre = nom_cen, descripcion = des_cen, direccion = dire , comuna = com2,ubicacion=ubi1)
 
     messages.success(request, "Centro Agregado exitosamente")
     return redirect('lista_centros')

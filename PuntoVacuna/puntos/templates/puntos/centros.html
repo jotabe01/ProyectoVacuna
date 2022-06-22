@@ -122,8 +122,8 @@
                 <div class="col-sm-9 col-8">
                     {% for c in comunas %}
                     <div id="{{c.nombre}}" class="tarjeta"
-                        style="margin-top: 70px; margin-bottom: 2%px;">
-                        <h1 style="color: white;">{{c.nombre}}</h1>
+                        style=" margin-bottom: 2%px;">
+                        <h1 style="color: white; padding-left: 27px;">{{c.nombre}}</h1>
                         {% for x in centros %}
                         {% if x.comuna.nombre == c.nombre %}
                         <div class="container">
@@ -137,7 +137,7 @@
                                         <h6>Descripcion:</h2>
                                             <p class="card-text">{{x.descripcion}}</p>
                                             <h6>Direccion: {{x.direccion}}</h2>
-                                                <a href="#" class="btn btn-primary">Ver en GoogleMaps</a>
+                                                <a href={{x.ubicacion}} target="_blank" class="btn btn-primary">Ver en GoogleMaps</a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Vacunas disponibles:
