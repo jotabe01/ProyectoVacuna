@@ -56,11 +56,13 @@
                             Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar Vacunas</a>
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
                     </li>
                     <li class="nav-item">
 
-                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar Centros</a>
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
 
                     </li>
                     {% endif %}
@@ -129,8 +131,43 @@
                         <th class="th">{{p.nombre_usr}}</th>
                         <th class="th">{{p.correo}}</th>
                         <th class="th">{{p.tipo_usuario.nombre}}</th>
-                        <th><a href="{% url 'eliminar_usuario' p.user_id %}"><button
+                        <th>
+
+                            <a href="#"><button type="button" data-toggle="modal" data-target="#myModal"
                                     class="btn btn-primary bbbt">Eliminar</button></a>
+                            <!-- Button to Open the Modal -->
+
+
+
+
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">¿Seguro deseas eliminar este usuario?</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            El usuario seleccionado sera eliminado y no se podra recuperar los datos
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancelar</button>
+                                            <a href="{% url 'eliminar_usuario' p.user_id %}"><button type="button"
+                                                    class="btn btn-primary ">Eliminar</button></a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <a href="{% url 'modificar_usuario' p.user_id %}"><button
                                     class="btn btn-primary bbbt">Modificar</button> </a>
                         </th>

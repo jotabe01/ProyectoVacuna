@@ -1,0 +1,179 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    width: 100%;
+    height: 800px; 
+    top: 100px;
+    position: absolute;
+    background-image: url("/static/puntos/img/fondito.jfif"); 
+    background-size: 100%;
+    background: absolute;
+    background-attachment: fixed;
+}
+.inputstyle{
+    margin-left: 0% !important;
+}
+.b1{
+    background: #5EF2FE;
+    color: black;
+    border: solid #5EF2FE;
+    margin-left: 10px;
+}
+.form-inline{
+    margin-left: 0%;
+}
+.bordernav{
+    box-shadow: 0 0 10px 0.5px grey;
+}
+
+.colornav{
+    background: rgb(27, 38, 49 ) ;  
+}
+.espaciadonavbar{
+    margin-left: auto;
+}
+.margnav{
+    margin-top: 2%;
+}
+.tarj{
+    padding: 0%;
+    padding-bottom: 10px ;
+}
+.b4{
+    background: #5EF2FE;
+    color: black;
+    border: solid #5EF2FE;
+    border-radius: 10%;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+.b2{
+    background: #0A4CDB;
+    color: white;
+    border: solid #0A4CDB;
+    border-radius: 10%;
+    margin-left: 6%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    margin-top: 10%;
+}
+.b3{
+    padding-left: 8%;
+    padding-right: 8%;
+}
+.prod{
+    margin-top: 60px;
+    margin-bottom: 230px;
+}
+.fijo{
+  position: sticky;
+  top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.precio{
+    color: red;
+    font-size:30px;
+}
+.titulo-prod{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.desc{
+    text-align: center;
+    margin-bottom: 10px;
+    
+}
+.img-prod{
+    padding-top:40px;
+}
+.titulo-prod2{
+   
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.txt1{
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+.txt2{
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.list{
+    list-style: none;
+}
+.site-info{
+    color: #ffffff;
+    background-color: #222222;
+    text-align: center;
+    padding: 20px;
+    font-size: 15px;
+    
+}
+.inside-site-info{
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+footer{
+    position: absolute;
+    margin-bottom: -37px;
+    width: 100%;
+    bottom: 0;
+}
+@media screen and (max-width: 550px){
+    footer{
+        width: 550px;
+    }
+}
+.card1{
+    width: 600px;
+}
+@media screen and (max-width:770px){
+    .ll{
+        width: 550px; 
+    }
+    .card1{
+        width: 550px;
+    }
+}
+.ttt{
+    padding: 0%;
+    box-shadow: 0px 0px 12px #ccc;
+}
+.btn-efect:hover {
+    background-color: #44BBFF;
+    border: solid #3A9EF1;
+}
+.btn-efect2:hover {
+    background-color: red;
+    border: solid red;
+    color: white;
+}
+#map {
+	height: 200px;
+	width: 100%;
+}
+.alerta{
+    position: relative;
+    padding: .75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.th{
+    padding-top: 50px !important;
+}
+.b1{
+    background: #5EF2FE;
+    color: black;
+    border: solid #5EF2FE;
+    margin-left: 10px;
+}
+.vv{
+    background-image: url("/static/ventas/img/fondo3.jpg");
+}

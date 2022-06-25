@@ -154,84 +154,22 @@
                                     Centro medico de {{c.nombre}}
                                 </div>
                                 <div class="card-body">
-                                    <h6>Nombre:</h2>
-                                        <h5 class="card-title">{{x.nombre}}</h5>
-                                        <h6>Descripcion:</h2>
-                                            <p class="card-text">{{x.descripcion}}</p>
-                                            <h6>Direccion: {{x.direccion}}</h2>
-                                                <a href={{x.ubicacion}} target="_blank" class="btn btn-primary">Ver en
-                                                    GoogleMaps</a>
+                                    <h6>Nombre:</h6>
+                                    <p>{{x.nombre}}</p>
+                                    <h6>Descripcion:</h6>
+                                    <p>{{x.descripcion}}</p>
+                                    <h6>Direccion:</h6>
+
+                                    <p>{{x.direccion}}</p>
+                                    <br>
+
+
+                                    <a href="{% url 'centro' x.id_centro %}" target="_blank" class="btn btn-primary">Ver Mas</a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Vacunas disponibles:
                                 </div>
-                                <button id="readbtn" onclick="mostrar();" class="btn btn-primary">Mostrar
-                                    comentarios</button>
-                                <span class="" id="hide">
-                                    <form action="{% url 'guardar_comentario' %}" method="POST" name="formulario_comuna"
-                                        id="formulario_comuna" class="">
-                                        {% csrf_token %}
 
-
-                                        <div class="form-group a">
-                                            <input type="text" class="form-control" id="cen" name="cen"
-                                                value="{{x.id_centro}}" placeholder="Ponga su nombre" hidden>
-                                            {% for u in usuario %}
-                                            {% if u.nombre_usr == user.username %}
-                                            <input type="text" class="form-control " id="us" name="us" hidden
-                                                value="{{u.num_run}}" placeholder="Ponga su nombre">
-                                            {% endif %}
-                                            {% endfor %}
-
-                                            <input type="text" style="margin-right: 1; display: inline-block; "
-                                                class="form-control col-9 " id="com" name="com" placeholder="">
-
-                                            <img style="width: 35px; position: absolute;"
-                                                src="{% static 'puntos/img/enviar.PNG' %}">
-                                            <button type="submit" class=" col-1 "
-                                                style="top: -10px; padding: 15px; opacity: 0;">
-
-                                            </button>
-
-
-                                        </div>
-
-
-                                        <div class="text-center">
-
-                                        </div>
-                                        <br>
-                                    </form>
-                                    {% for co in comentario %}
-                                    {% if x.id_centro == co.centro.id_centro %}
-                                    <div class="">
-                                        <b>{{co.usuario.nombre_usr}}:</b>
-                                        <br>
-                                        {{co.comentario}}
-
-                                    </div>
-                                    <hr>
-                                    {% endif %}
-                                    {% endfor %}
-                                    <hr>
-                                    <button id="readbtn" onclick="ocultar();" class="btn btn-primary">Ocultar
-                                        comentarios</button>
-                                </span>
-
-
-                                <script>
-                                    function mostrar() {
-                                        document.getElementById('').style.display = 'block'
-                                        document.getElementById('readbtn').style.display = 'none'
-                                    }
-
-                                    function ocultar() {
-                                        document.getElementById('').style.display = 'none'
-                                        document.getElementById('readbtn').style.display = 'block'
-                                    }
-
-
-                                </script>
 
                             </div>
 

@@ -282,8 +282,13 @@ def guardar_centro(request):
     com = request.POST['comuna']
     dire = request.POST['direc']
     ubi1 = request.POST['ubi']
+    imangen_c = request.FILES['img_cen']
+    ubix1 = request.POST['ubiX']
+    ubiy1 = request.POST['ubiY']
+    
+
     com2 = Comuna.objects.get(id_comuna = com)
-    Centro.objects.create(nombre = nom_cen, descripcion = des_cen, direccion = dire , comuna = com2,ubicacion=ubi1)
+    Centro.objects.create(nombre = nom_cen, descripcion = des_cen, direccion = dire , comuna = com2, ubicacion = ubi1 , foto = imangen_c, lat = ubix1, lng = ubiy1 )
 
     messages.success(request, "Centro Agregado exitosamente")
     return redirect('lista_centros')
@@ -370,7 +375,7 @@ def guardar_comentario(request):
     
     Comentario.objects.create(comentario = com1, centro = cen2, usuario = us2)
     messages.success(request, "Comentario guardado")
-    return redirect('centros')
+    return redirect('centro', cen2.id_centro )
 
 
 def eliminar_vacuna(request, id):
@@ -417,15 +422,26 @@ def funcionmodcen(request):
     des_cen = request.POST['des_cent']
     com = request.POST['comuna']
     dire = request.POST['direc']
+    ubi1= request.POST['ubi']
+    ubix1 = request.POST['ubiX']
+    ubiy1 = request.POST['ubiY'] 
+
     com_2 = Comuna.objects.get(id_comuna = com)
    
 
     centro1 = Centro.objects.get(id_centro = id_cen)
+
+    if request.FILES.get('imgcen') is not None:
+        fot = request.FILES['imgcen']
+        centro1.foto = fot
+
     centro1.nombre = nom_cen
     centro1.descripcion = des_cen
     centro1.comuna = com_2
     centro1.direccion = dire
-   
+    centro1.ubicacion = ubi1
+    centro1.lat = ubix1
+    centro1.lng = ubiy1
 
     
     centro1.save()
@@ -449,3 +465,18 @@ def buscar_vacuna(request):
             }
         messages.success(request,'Resultados de: '+x)
     return render(request,'puntos/lista_vacunas.html', contexto )
+
+def centro(request,id):
+    centro = Centro.objects.filter(id_centro = id)
+    usuario = Usuario.objects.all()
+    comentario = Comentario.objects.all()
+    
+    comunas = Comuna.objects.all()
+    contexto = {
+        "comunas": comunas,
+        "centro": centro,
+        "usuario": usuario,
+        "comentario":comentario,
+    }
+    return render(request,'puntos/centro.html',contexto)
+

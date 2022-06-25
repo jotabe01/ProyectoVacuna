@@ -127,7 +127,7 @@
                                 {% endfor%}
                             </div>
                             {% endif %}
-                            <form action="{% url 'guardar_centro' %}" method="POST" name="formulario_centro"
+                            <form action="{% url 'guardar_centro' %}" method="POST" enctype="multipart/form-data" name="formulario_centro"
                                 id="formulario_centro" class="bord">
                                 {% csrf_token %}
                                 <div id="in" class="text-center">Registrar centro</div>
@@ -154,9 +154,23 @@
                                     <input type="text" class="form-control" id="direc" name="direc" placeholder="Ej: ">
                                 </div>
                                 <div class="form-group">
-                                    <label for="ubi">Ubicacion</label>
+                                    <label for="ubi">Ubicacion URL</label>
                                     <textarea type="text" class="form-control" id="ubi" name="ubi" placeholder="Introduzca ubicacion de google maps " cols="50" rows="3"></textarea>
                                     
+                                </div>
+                                <div class="form-group">
+                                    <label for="ubi">Ubicacion X</label>
+                                    <input type="text" class="form-control" id="ubiX" name="ubiX" placeholder="Introduzca ubicacion 'X' de google maps " >
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="ubi">Ubicacion Y</label>
+                                    <input type="text" class="form-control" id="ubiY" name="ubiY" placeholder="Introduzca ubicacion 'Y' de google maps " >
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto">Imagen</label>
+                                    <input type="file" id="img_cen" class="" name="img_cen">
                                 </div>
 
                                 <div class="text-center">

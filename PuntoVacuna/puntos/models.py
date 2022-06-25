@@ -47,6 +47,11 @@ class Centro(models.Model):
     descripcion = models.CharField(max_length=300,null=True)
     comuna = models.ForeignKey(Comuna,on_delete=models.CASCADE)
     ubicacion=models.CharField(max_length=1000,null=True)
+    foto = models.ImageField(upload_to="puntos",null=True)
+    lat = models.CharField(max_length=30,null=True)
+    lng = models.CharField(max_length=30,null=True)
+    
+
     def __str__(self):
         return self.nombre
 

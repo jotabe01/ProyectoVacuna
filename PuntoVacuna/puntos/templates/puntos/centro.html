@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'puntos/css/centros.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="icon" type="image/jpg" href="{% static 'puntos/img/icono.PNG' %}">
+    <title>Music Pro-Producto</title>
+    <style>
+        .hide {
+            display: block;
+        }
+        .btnver{
+            display: none;
+        },
+
+        .show {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
+            <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;"
+                    src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
+            <form class="form-inline " action="" method="POST">
+                {% csrf_token %}
+                <input class="form-control ml-sm-5 inputstyle letras" type="text"
+                    placeholder="Buscar vacunas disponibles" style="width: 241px;" required name="dato" id="dato">
+                <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
+            </form>
+            <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link ml-sm-2" href="">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'contacto' %}">Contactanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'centros' %}">Centros por comuna</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav espaciadonavbar">
+
+
+
+
+                    {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_usuarios' %}">Administrar
+                            Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'lista_vacunas' %}">Administrar
+                            Vacunas</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'lista_centros' %}">Administrar
+                            Centros</a>
+
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="">{{user.username}}</a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link ml-sm-2" href="{% url 'registrar' %}">Registrarse</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="color: white;" class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <article>
+        <div class="container ll prod">
+            <div class="row">
+                {% for c in centro %}
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ttt">
+                    <div class="card">
+                        <img class="card-img-top img-prod" src="{{c.foto.url}}" alt="Card image" style="width:100%">
+                        <div class="card-body">
+                            <h4 class="card-title titulo-prod">Descripción</h4>
+                            <h6 class="desc">{{c.descripcion}}</h6>
+                            <h4 class="card-title titulo-prod">Vacuna disponibles</h4>
+                            <h6 class="desc">{{c.medida_prod}}</h6>
+
+
+                            <div class="container">
+
+                            </div>
+                            <p><b>Importante:</b>La información del empaque y/o contenido del producto final puede
+                                diferir respecto a lo que mostramos en nuestro sitio web, tanto a nivel de ingredientes,
+                                trazas, información nutricional, sellos, modo de uso y/o modo de conservación. Usted no
+                                debe basarse únicamente en la información que se muestra en nuestro sitio web y siempre
+                                debe leer las etiquetas, advertencias e instrucciones antes de usar o consumir un
+                                producto.</p>
+                            <script>
+                                function iniciarMap() {
+                                    var coord = { lat: {{c.lat}}, lng: {{c.lng}} };
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 10,
+                                        center: coord
+                                    });
+                                    var marker = new google.maps.Marker({
+                                        position: coord,
+                                        map: map
+                                    });
+                                }
+                            </script>
+                            <div class="mapa">
+                                <div id="map"></div>
+                            </div>
+                            <script
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>
+                        </div>
+                        <button id="readbtn"  onclick="mostrar();" class="btn btnver btn-primary">Mostrar
+                            comentarios</button>
+                        <span class="hide" id="hide">
+                            <form action="{% url 'guardar_comentario' %}" method="POST" name="formulario_comuna"
+                                id="formulario_comuna" class="">
+                                {% csrf_token %}
+
+
+                                <div class="form-group a" style="margin-top: 20px; margin-bottom: 0;">
+                                    <input type="text" class="form-control" id="cen" name="cen" value="{{c.id_centro}}"
+                                        placeholder="Ponga su nombre" hidden>
+                                    {% for u in usuario %}
+                                    {% if u.nombre_usr == user.username %}
+                                    <input type="text" class="form-control " id="us" name="us" hidden
+                                        value="{{u.num_run}}" placeholder="Ponga su nombre">
+                                    {% endif %}
+                                    {% endfor %}
+                                    <h4 class="txt2">Comentarios:</h4>
+                                    {% for u in usuario %}
+                                    {% if u.user.id == user.id %}
+                                    <input type="text" style="margin-left: 30px; display: inline-block; "
+                                        class="form-control col-10 " id="com" name="com" placeholder="Escribe tu comentario">
+
+                                    <img style="width: 35px; margin-left: 5px; position: absolute;"
+                                        src="{% static 'puntos/img/enviar.PNG' %}">
+                                    <button type="submit" class=" col-1 "
+                                        style="top: -10px; padding: 15px; opacity: 0;">
+
+                                    </button>
+                                    {% endif %}
+                                    {% endfor %}
+
+
+                                </div>
+
+
+                                <div class="text-center">
+
+                                </div>
+                                <br>
+                            </form>
+                            {% for co in comentario %}
+                            {% if c.id_centro == co.centro.id_centro %}
+                            <div style="margin-left: 35px;">
+                                <hr>
+                                <b>{{co.usuario.nombre_usr}}:</b>
+                                <br>
+                                <h6 style="margin-left: 30px; margin-top: 10px;">{{co.comentario}}</h6>
+
+                            </div>
+                            
+                            {% endif %}
+                            {% endfor %}
+                            <hr>
+                            <button style="width: 100%;" id="readbtn" onclick="ocultar();" class="btn btn-primary">Ocultar
+                                comentarios</button>
+                        </span>
+
+
+                        <script>
+                            function mostrar() {
+                                document.getElementById('hide').style.display = 'block'
+                                document.getElementById('readbtn').style.display = 'none'
+                            }
+
+                            function ocultar() {
+                                document.getElementById('hide').style.display = 'none'
+                                document.getElementById('readbtn').style.display = 'block'
+                            }
+
+
+                        </script>
+                    </div>
+                </div>
+
+                <div class="fijo col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="fijo card" style="width:350px">
+
+                        <div class="card-body ttt">
+                            <div class="card-body tarj">
+                                <h4 class="card-title text-center txt1">{{c.nombre}}</h4>
+                                <ul class="list">
+                                    <h6 class="txt2">Comuna:</h6>
+                                    <li class="txt2">{{c.comuna.nombre}} </li>
+                                    <h6 class="txt2">Direccion: </h6>
+                                    <li class="txt2">{{c.direccion}}</li>
+                                </ul>
+
+
+
+
+
+
+
+                                <div class="text-center">
+
+                                    <a href=""><button type="button" class="b2 b3 btn-efect">Regresar</button></a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+    <script src="{% static 'ventas/js/script.js' %}"></script>
+
+    <footer class="site-info" style="margin-bottom: -45%;">
+        <div class="inside-site-info">
+            <span>Todos los derechos Reservados [2022]</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

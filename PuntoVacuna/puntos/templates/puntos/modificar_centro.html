@@ -167,6 +167,26 @@
                                         value="{{ modificar_centro.direccion }}"
                                         placeholder="Ej: Queda en el 3 piso de la sede DUOC #123">
                                 </div>
+                                <div class="form-group">
+                                    <label for="ubi">Ubicacion URL</label>
+                                    <textarea type="text" class="form-control"  id="ubi" name="ubi" placeholder="Introduzca ubicacion de google maps " cols="50" rows="3">{{ modificar_centro.ubicacion }}</textarea>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="ubi">Ubicacion X</label>
+                                    <input type="text" class="form-control" id="ubiX" value="{{ modificar_centro.lat }}" name="ubiX" placeholder="Introduzca ubicacion 'X' de google maps " >
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="ubi">Ubicacion Y</label>
+                                    <input type="text" class="form-control" id="ubiY" name="ubiY" value="{{ modificar_centro.lng }}" placeholder="Introduzca ubicacion 'Y' de google maps " >
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="imgcen">Imagen</label>
+                                    <input type="file" value="{{ modificar_centro.foto }}" class="" id="imgcen"
+                                        name="imgcen">
+                                </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary bbbt">Modificar</button>
                                 </div>
