@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
-from .views import  eliminar_centro,contacto,centros,contac,guardar_comentario,centro, guardar_centro, home,registrar_comuna,guardar_comuna, inicio, lista_centros, lista_usuarios, modificar_centro, registrar_usuario,registro, eliminar_usuario, form_login, login_view, logout_view, registrar2, modificar_usuario, modificar_us, buscar_usuario, registrar,registrar_centro,  lista_centros, eliminar_centro, guardar_centro, modificar_centro, funcionmodcen, buscar_centro, guardar_vacuna, eliminar_vacuna, registrar_vacuna, lista_vacunas, funcionmodvac, modificar_vacuna, buscar_vacuna
+from .views import  eliminar_centro,buscador,busquedas,contacto,centros,contac,eliminar_vac_cen,vac_cen,guardar_comentario,centro, guardar_centro, home,registrar_comuna,guardar_comuna, inicio, lista_centros, lista_usuarios, modificar_centro, registrar_usuario,registro, eliminar_usuario, form_login, login_view, logout_view, registrar2, modificar_usuario, modificar_us, buscar_usuario, registrar,registrar_centro,  lista_centros, eliminar_centro, guardar_centro, modificar_centro, funcionmodcen, buscar_centro, guardar_vacuna, eliminar_vacuna, registrar_vacuna, lista_vacunas, funcionmodvac, modificar_vacuna, buscar_vacuna
 
 
 urlpatterns = [
@@ -27,6 +27,8 @@ urlpatterns = [
     path('guardar_comentario',guardar_comentario, name="guardar_comentario"),
     path('eliminar_centro/<id>',eliminar_centro, name="eliminar_centro"),
     path('centro/<id>',centro, name="centro"),
+    path('vac_cen',vac_cen,name="vac_cen"),
+    path('eliminar_vac_cen/<id>',eliminar_vac_cen,name="eliminar_vac_cen"),
     
     
     path('modificar_centro/<id>', modificar_centro,name="modificar_centro"),
@@ -40,12 +42,14 @@ urlpatterns = [
     path('modificar_vacuna/<id>', modificar_vacuna,name="modificar_vacuna"),
     path('funcionmodvac', funcionmodvac,name="funcionmodvac"),
     path('buscar_vacuna',login_required(buscar_vacuna),name="buscar_vacuna"),
+    path('busquedas',busquedas,name="busquedas"),
     #comuna
     path('registrar_comuna',login_required(registrar_comuna), name="registrar_comuna"),
     path('guardar_comuna',login_required(guardar_comuna), name="guardar_comuna"),
 
     #vista centros
     path('centros', centros, name="centros"),
+    path('buscador', buscador, name="buscador"),
 
 
     path('login/',form_login, name="login"),

@@ -24,14 +24,7 @@ class Usuario(models.Model):
         return self.nombres
 
 
-class Vacuna(models.Model):
-    id_vacuna = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=30,null=True)
-    lab = models.CharField(max_length=30,null=True)
-    descripcion = models.CharField(max_length=1000,null=True)
 
-    def __str__(self):
-        return self.nombre
 
 class Comuna(models.Model):
     id_comuna = models.AutoField(primary_key=True)
@@ -54,7 +47,24 @@ class Centro(models.Model):
 
     def __str__(self):
         return self.nombre
+        
+class Vacuna(models.Model):
+    id_vacuna = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=30,null=True)
+    lab = models.CharField(max_length=30,null=True)
+    descripcion = models.CharField(max_length=1000,null=True)
 
+    def __str__(self):
+        return self.nombre
+
+class Vac_cen(models.Model):
+    id_vac_cen = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=30,null=True)
+    vacuna = models.ForeignKey(Vacuna,on_delete=models.CASCADE)
+    centro = models.ForeignKey(Centro,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
 
 
 class DireccionU(models.Model):
@@ -95,6 +105,7 @@ class Comentario(models.Model):
     comentario = models.CharField(max_length=300, null=True)
     like = models.IntegerField(null=True)
     dislike = models.IntegerField(null=True)
+    fecha_p = models.CharField(max_length=300, null=True)
     centro = models.ForeignKey(Centro,on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 

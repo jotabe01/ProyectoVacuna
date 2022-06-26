@@ -19,7 +19,7 @@
         }
         .btnver{
             display: none;
-        },
+        }
 
         .show {
             display: none;
@@ -33,11 +33,11 @@
         <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
             <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;"
                     src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
-            <form class="form-inline " action="" method="POST">
+            <form class="form-inline " action="{% url 'buscador' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control ml-sm-5 inputstyle letras" type="text"
-                    placeholder="Buscar vacunas disponibles" style="width: 241px;" required name="dato" id="dato">
-                <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
+                    placeholder="Buscar vacunas disponibles" style="width: 241px; margin-left: 0 !important;" required name="dato" id="dato">
+                <button style="background: #5EF2FE;color: black;border: solid #5EF2FE;margin-left: 10px;" class="btn btn-primary b1 letras" type="submit">Buscar</button>
             </form>
             <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#collapsibleNavbar">
@@ -98,7 +98,16 @@
         </nav>
     </header>
     <article>
+        
         <div class="container ll prod">
+            {% if messages %}
+                    <div class="alert alert-info" style="background-color: #5EF2FE;">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {% for x in messages %}
+                        <strong>{{ x }}</strong>
+                        {% endfor%}
+                    </div>
+                    {% endif %}
             <div class="row">
                 {% for c in centro %}
                 <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ttt">
@@ -107,19 +116,23 @@
                         <div class="card-body">
                             <h4 class="card-title titulo-prod">Descripción</h4>
                             <h6 class="desc">{{c.descripcion}}</h6>
-                            <h4 class="card-title titulo-prod">Vacuna disponibles</h4>
-                            <h6 class="desc">{{c.medida_prod}}</h6>
+                            <h4 class="card-title titulo-prod">Vacunas disponibles</h4>
+                            <h6 class="desc">-
+                                {% for v in vac_cen %}
+
+                                {% if c.id_centro == v.centro.id_centro %}
+    
+                                {{v.vacuna.nombre}} -
+                                {% endif %}
+                                {% endfor %}
+
+                            </h6>
 
 
                             <div class="container">
-
+                                
                             </div>
-                            <p><b>Importante:</b>La información del empaque y/o contenido del producto final puede
-                                diferir respecto a lo que mostramos en nuestro sitio web, tanto a nivel de ingredientes,
-                                trazas, información nutricional, sellos, modo de uso y/o modo de conservación. Usted no
-                                debe basarse únicamente en la información que se muestra en nuestro sitio web y siempre
-                                debe leer las etiquetas, advertencias e instrucciones antes de usar o consumir un
-                                producto.</p>
+                            
                             <script>
                                 function iniciarMap() {
                                     var coord = { lat: {{c.lat}}, lng: {{c.lng}} };
@@ -156,7 +169,10 @@
                                         value="{{u.num_run}}" placeholder="Ponga su nombre">
                                     {% endif %}
                                     {% endfor %}
-                                    <h4 class="txt2">Comentarios:</h4>
+                                    <h4 class="txt2">Comentarios:
+                                    {% if user.is_authenticated %}
+
+                                    
                                     {% for u in usuario %}
                                     {% if u.user.id == user.id %}
                                     <input type="text" style="margin-left: 30px; display: inline-block; "
@@ -168,8 +184,14 @@
                                         style="top: -10px; padding: 15px; opacity: 0;">
 
                                     </button>
+                                    
+                                   
                                     {% endif %}
+                                    
                                     {% endfor %}
+                                    {% else %}
+                                </h4> <h6 style="margin-left: 10%; ">Debes <a href="{% url 'inicio' %}">Iniciar sesion</a> para poder comentar. Si no tienes cuenta puedes <a href="{% url 'registrar' %}">Registrarte</a></h6>
+                                    {% endif %}
 
 
                                 </div>
@@ -182,11 +204,16 @@
                             </form>
                             {% for co in comentario %}
                             {% if c.id_centro == co.centro.id_centro %}
+                            
                             <div style="margin-left: 35px;">
+                                
                                 <hr>
+                                
                                 <b>{{co.usuario.nombre_usr}}:</b>
+                                
                                 <br>
-                                <h6 style="margin-left: 30px; margin-top: 10px;">{{co.comentario}}</h6>
+                                <h6 style="margin-left: 30px; margin-top: 10px; display: inline;">{{co.comentario}}</h6><small style="float: right ;">{{co.fecha_p}}</small>
+                                
 
                             </div>
                             
@@ -219,7 +246,7 @@
 
                         <div class="card-body ttt">
                             <div class="card-body tarj">
-                                <h4 class="card-title text-center txt1">{{c.nombre}}</h4>
+                                <h4 class="card-title text-center txt1" style="margin-top: 20px;">{{c.nombre}}</h4>
                                 <ul class="list">
                                     <h6 class="txt2">Comuna:</h6>
                                     <li class="txt2">{{c.comuna.nombre}} </li>
@@ -235,7 +262,7 @@
 
                                 <div class="text-center">
 
-                                    <a href="{{c.ubicacion}}"><button type="button" class="b2 b3 btn-efect">Ver en Google Maps</button></a>
+                                    <a href="{{c.ubicacion}}"><button type="button" class="btn  btn-primary">Ver en Google Maps <img style="max-width:30px ; " src="{% static 'puntos/img/logomaps.PNG' %}" ></button> </a>
                                 </div>
 
 
@@ -249,7 +276,7 @@
     </article>
     <script src="{% static 'ventas/js/script.js' %}"></script>
 
-    <footer class="site-info" style="margin-bottom: -45%;">
+    <footer class="site-info" >
         <div class="inside-site-info">
             <span>Todos los derechos Reservados [2022]</span>
         </div>

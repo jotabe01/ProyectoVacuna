@@ -1,8 +1,10 @@
+from ast import Try
 from django.shortcuts import render, redirect
-from .models import Comentario, Usuario, Tipo_usuario, Comuna, Centro, Vacuna,DireccionC, DireccionU, Contacto
+from .models import Comentario, Usuario, Tipo_usuario, Comuna, Centro, Vac_cen, Vacuna,DireccionC, DireccionU, Contacto
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from datetime import date, datetime
 # Create your views here.
 
 def home(request):
@@ -19,11 +21,13 @@ def centros(request):
     centros = Centro.objects.all()
     usuario = Usuario.objects.all()
     comentario = Comentario.objects.all()
+    vac_cen = Vac_cen.objects.all()
     contexto = {
         "comunas": comunas,
         "centros": centros,
         "usuario": usuario,
         "comentario":comentario,
+        "vac_cen":vac_cen,
     }
     
     return render (request,'puntos/centros.html',contexto)
@@ -168,6 +172,24 @@ def buscar_usuario(request):
         messages.success(request,'Resultados de: '+x)
     return render(request,'puntos/lista_usuarios.html', contexto )
 
+def busquedas(request):
+    return render(request,'puntos/busquedas.html' )
+
+def buscador(request):
+    if Centro.nombre or Vacuna.nombre:
+        x = request.POST['dato']
+        centros = Centro.objects.filter(nombre__contains = x )
+        comunas = Comuna.objects.all()
+        
+        usuario = Usuario.objects.all()
+        contexto = {
+            "centros" :  centros,
+            "usuario":usuario,
+            "comunas":comunas,
+            }
+        messages.success(request,'Resultados de: '+x)
+    return render(request,'puntos/busquedas.html', contexto )
+
 def login_view(request):
     username_u = request.POST['username']
     password_u = request.POST['password']
@@ -260,7 +282,13 @@ def registrar_comuna(request):
 
 def lista_centros(request):
     centrosa = Centro.objects.all()
-    contexto = {"Centros": centrosa}
+    vacunas = Vacuna.objects.all()
+    vac_cen = Vac_cen.objects.all()
+    contexto = {
+        "Centros": centrosa,
+        "vacunas":vacunas,
+        "vac_cen":vac_cen,
+        }
     return render(request,'puntos/lista_centros.html', contexto)
 
 
@@ -301,6 +329,13 @@ def eliminar_centro(request, id):
 
     return redirect('lista_centros')
 
+
+def eliminar_vac_cen(request, id):
+    vac_cen = Vac_cen.objects.get(id_vac_cen = id)
+    vac_cen.delete()
+    messages.success(request,'Vacuna eliminada del centro ')
+
+    return redirect('lista_centros')
 
 
 def modificar_centro(request, id):
@@ -369,13 +404,30 @@ def guardar_comentario(request):
     com1 = request.POST['com']
     cen1 = request.POST['cen']
     us1 = request.POST['us']
+    fecha_act = date.today()
     cen2 = Centro.objects.get(id_centro = cen1)
     us2 = Usuario.objects.get(num_run = us1)
 
     
-    Comentario.objects.create(comentario = com1, centro = cen2, usuario = us2)
+    Comentario.objects.create(comentario = com1, centro = cen2, fecha_p=fecha_act , usuario = us2)
     messages.success(request, "Comentario guardado")
     return redirect('centro', cen2.id_centro )
+
+def vac_cen(request):
+    vac1 = request.POST['vac']
+    cen1 = request.POST['cen']
+    cen2 = Centro.objects.get(id_centro = cen1)
+    vac2 = Vacuna.objects.get(id_vacuna = vac1)
+    
+    try:
+        a= Vac_cen.objects.get(centro=cen2, vacuna=vac2 )
+        messages.error(request,'La vacuna ya se encuentra en el centro')
+        return redirect('lista_centros')
+    except:
+        Vac_cen.objects.create(nombre = "a", centro = cen2, vacuna = vac2)
+        messages.success(request, "Vacuna agregada a "+ cen2.nombre)
+        return redirect('lista_centros',)
+    
 
 
 def eliminar_vacuna(request, id):
@@ -470,13 +522,14 @@ def centro(request,id):
     centro = Centro.objects.filter(id_centro = id)
     usuario = Usuario.objects.all()
     comentario = Comentario.objects.all()
-    
+    vac_cen = Vac_cen.objects.all()
     comunas = Comuna.objects.all()
     contexto = {
         "comunas": comunas,
         "centro": centro,
         "usuario": usuario,
         "comentario":comentario,
+        "vac_cen":vac_cen,
     }
     return render(request,'puntos/centro.html',contexto)
 

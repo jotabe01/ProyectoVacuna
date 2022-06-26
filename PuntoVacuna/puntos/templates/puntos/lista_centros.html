@@ -21,11 +21,11 @@
         <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
             <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;"
                     src="{% static 'puntos/img/icono.PNG' %}" alt=""></a>
-            <form class="form-inline " action="" method="POST">
+            <form class="form-inline " action="{% url 'buscador' %}" method="POST">
                 {% csrf_token %}
                 <input class="form-control ml-sm-5 inputstyle letras" type="text"
-                    placeholder="Buscar vacunas disponibles" style="width: 241px;" required name="dato" id="dato">
-                <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
+                    placeholder="Buscar vacunas disponibles" style="width: 241px; margin-left: 0 !important;" required name="dato" id="dato">
+                <button style="background: #5EF2FE;color: black;border: solid #5EF2FE;margin-left: 10px;" class="btn btn-primary b1 letras" type="submit">Buscar</button>
             </form>
             <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#collapsibleNavbar">
@@ -119,9 +119,9 @@
                         <th></th>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Descripcion</th>
                         <th>Comuna</th>
                         <th>Direccion</th>
+                        <th>Vacunas</th>
                         <th>Accion</th>
                     </tr>
                 </thead>
@@ -131,15 +131,26 @@
                         <th class="th" style="padding-top: 2px!important;">
                             <a href="">
                                 {% if c.foto %}
-                                <img class="img_prod" src="{{ c.foto.url}}" style="width: 100px; height: 100px;">
+                                <img class="img_prod" src="{{ c.foto.url}}" style="width: 100px; height: 100px; margin-top: 27%;">
                                 {% endif %}
                             </a>
                         </th>
                         <th class="th">{{c.id_centro}}</th>
                         <th class="th">{{c.nombre}}</th>
-                        <th class="th">{{c.descripcion}}</th>
+                        
                         <th class="th">{{c.comuna.nombre}}</th>
                         <th class="th">{{c.direccion}} </th>
+                        <th class="th">
+
+                            {% for v in vac_cen %}
+
+                            {% if c.id_centro == v.centro.id_centro %}
+
+                            {{v.vacuna.nombre}}/
+                            
+                            {% endif %}
+                            {% endfor %}
+                        </th>
 
 
 
@@ -171,8 +182,8 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Cancelar</button>
-                                                <a href="{% url 'eliminar_centro' c.id_centro %}"><button  type="button" class="btn btn-primary "
-                                                >Eliminar</button></a>
+                                            <a href="{% url 'eliminar_centro' c.id_centro %}"><button type="button"
+                                                    class="btn btn-primary ">Eliminar</button></a>
                                         </div>
 
                                     </div>
@@ -181,6 +192,78 @@
 
                             <a href="{% url 'modificar_centro' c.id_centro %}"><button
                                     class="btn btn-primary bbbt">Modificar</button> </a>
+
+                            <a href="#"><button type="button" data-toggle="modal" data-target="#myModal{{c.id_centro}}"
+                                    class="btn btn-primary bbbt">Vacunas</button></a>
+                            <!-- Button to Open the Modal -->
+
+
+
+
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal{{c.id_centro}}">
+                                <form action="{% url 'vac_cen' %}" method="POST" name="formulario_vac"
+                                    id="formulario_vac">
+                                    {% csrf_token %}
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Agregar vacuna a {{c.nombre}}</h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <input type="text" id="cen" name="cen" value="{{c.id_centro}}" hidden readonly>
+
+
+                                                <div class="form-group">
+
+                                                    <select class="form-control" id="vac" name="vac">
+                                                        {% if c.id_cento == vac_cen.centro.id_centro %}
+
+                                                        {% for v in vacunas %}
+
+                                                        <option value="{{ v.id_vacuna }} "> 
+                                                            {{ v.nombre }} 
+  
+                                                        </option>
+                                                       
+                                               
+
+
+                                                        {% endfor %}
+                                                        {% endif %}
+                                                    </select>
+                                                    <br>
+                                                    {% for v in vac_cen %}
+
+                                                    {% if c.id_centro == v.centro.id_centro %}
+
+                                                    
+                                                    <hr>
+                                                    <h6 style="display: inline;">{{v.vacuna.nombre}}</h6> <a href="{% url 'eliminar_vac_cen' v.id_vac_cen %}"><button type="button" class="btn btn-danger" style="float: right; background-color: red; display: inline !important; ">X</button></a> 
+                                                    
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"
+                                                    data-dismiss="modal">Volver</button>
+                                                <a href=""><button type="submit"
+                                                        class="btn btn-primary ">Agregar</button></a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </th>
                     </tr>
                     {% endfor %}
@@ -195,42 +278,42 @@
 
                         <th>
                             <a href="#"><button type="button" data-toggle="modal" data-target="#myModal"
-                                class="btn btn-primary bbbt">Eliminar</button></a>
-                        <!-- Button to Open the Modal -->
+                                    class="btn btn-primary bbbt">Eliminar</button></a>
+                            <!-- Button to Open the Modal -->
 
 
 
 
-                        <!-- The Modal -->
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">¿Seguro deseas eliminar este centro?</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">¿Seguro deseas eliminar este centro?</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            El centro seleccionado sera eliminado y no se podra recuperar los datos
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancelar</button>
+                                            <a href="{% url 'eliminar_centro' c.id_centro %}"><button type="button"
+                                                    class="btn btn-primary ">Eliminar</button></a>
+                                        </div>
+
                                     </div>
-
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                        El centro seleccionado sera eliminado y no se podra recuperar los datos
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger"
-                                            data-dismiss="modal">Cancelar</button>
-                                            <a href="{% url 'eliminar_centro' c.id_centro %}"><button  type="button" class="btn btn-primary "
-                                            >Eliminar</button></a>
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
 
-                        <a href="{% url 'modificar_centro' c.id_centro %}"><button
-                                class="btn btn-primary bbbt">Modificar</button> </a>
+                            <a href="{% url 'modificar_centro' c.id_centro %}"><button
+                                    class="btn btn-primary bbbt">Modificar</button> </a>
                         </th>
                     </tr>
                     {% endfor %}

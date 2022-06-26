@@ -32,11 +32,9 @@ body{
     margin-bottom: 150px;
 }
 .colornav{
-    background: #0A4CDB; 
+    background: rgb(27, 38, 49 ) ;  
 }
-.letra{
-    color: white;
-}
+
 .site-info{
     color: #ffffff;
     background-color: #222222;

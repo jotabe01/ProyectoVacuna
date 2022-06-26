@@ -30,7 +30,7 @@ label{color: white;}
     top: 75px;
 }
 .bbbt{
-    margin-top: 10%;
+    margin-top: 1%;
     background: #5EF2FE;
     color: black;
     border: solid #5EF2FE;
@@ -38,7 +38,12 @@ label{color: white;}
 .bordernav{
     box-shadow: 0 0 20px 0.5px grey;
 }
-
+.b1{
+    background: #5EF2FE;
+    color: black;
+    border: solid #5EF2FE;
+    margin-left: 10px;
+}
 
 .th{
     

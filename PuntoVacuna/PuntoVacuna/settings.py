@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/xe',
-        'USER' : 'punto2',
+        'USER' : 'puntos1',
         'PASSWORD' : '123',
         'TEST' : {
             'USER' : 'default_test',
@@ -138,3 +138,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'

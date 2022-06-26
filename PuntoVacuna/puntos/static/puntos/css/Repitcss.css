@@ -4,7 +4,7 @@
 }
 body{
     width: 100%;
-    height: 800px; 
+     
     top: 100px;
     position: absolute;
     background-image: url("/static/puntos/img/fondito.jfif"); 
@@ -33,7 +33,7 @@ body{
 }
 
 .colornav{
-    background: #0A4CDB; 
+    background: rgb(27, 38, 49 ) ;  
 }
 .letra{
     color: white;

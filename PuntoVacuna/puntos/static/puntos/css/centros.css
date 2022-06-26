@@ -121,10 +121,10 @@ body{
    
 }
 footer{
-    position: absolute;
-    margin-bottom: -37px;
+    height: 50px;
     width: 100%;
     bottom: 0;
+    background: black;
 }
 @media screen and (max-width: 550px){
     footer{
