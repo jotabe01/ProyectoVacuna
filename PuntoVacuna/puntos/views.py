@@ -521,7 +521,7 @@ def buscar_vacuna(request):
 def centro(request,id):
     centro = Centro.objects.filter(id_centro = id)
     usuario = Usuario.objects.all()
-    comentario = Comentario.objects.all()
+    comentario = Comentario.objects.all().order_by('-fecha_p')
     vac_cen = Vac_cen.objects.all()
     comunas = Comuna.objects.all()
     contexto = {
